@@ -12,7 +12,7 @@ import SwiftUI
 enum LoadingState {
     case loading, success, failed, none
 }
-
+//enum 
 class ForecastListViewModel: ObservableObject {
     
     @Published var loadingState: LoadingState = .none
