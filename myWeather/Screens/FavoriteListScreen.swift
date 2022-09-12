@@ -22,6 +22,7 @@ struct FavoriteListScreen: View {
     
     @EnvironmentObject var store: Store
     @State var showAdd = false
+    @StateObject private var addCityVM = AddCityViewModel()
     
     var body: some View {
         NavigationView {
@@ -29,12 +30,26 @@ struct FavoriteListScreen: View {
                 Image("background-image")
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
-                ScrollView {
-                    ForEach(store.weatherList, id: \.id) { myWeather in
-                        WeatherCell(myWeather: myWeather)
-                    }
-                    .padding()
-                }//ScrollView
+                VStack {
+                    TextField("Search for a city", text: $addCityVM.city, onEditingChanged: {
+                        _ in }, onCommit: {
+                            addCityVM.add { myWeather in
+                                store.addWeather(myWeather)
+                        }
+                    })
+                    .foregroundColor(.accentColor)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.horizontal)
+                    
+                    ScrollView {
+                        ForEach(store.weatherList, id: \.city) { myWeather in
+                            NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
+                                WeatherCell(myWeather: myWeather)
+                            }
+                        }
+                        .padding()
+                    }//ScrollView
+                }//Vstack
             }//Zstack
         
 // MARK: - NavigationBar
@@ -43,7 +58,7 @@ struct FavoriteListScreen: View {
                 store.showingList = false
             }
         }, label: {
-            Image(systemName: "chevron.left.square.fill")
+            Image(systemName: "location.circle.fill")
                 .foregroundColor(Color("iconColor"))
                 .font(.title)
         }),trailing: Button(action: {
@@ -53,10 +68,7 @@ struct FavoriteListScreen: View {
                     .foregroundColor(Color("iconColor"))
                     .font(.title)
             }))
-        .sheet(isPresented: $showAdd) {
-            AddCityView().environmentObject(store)
-            }
-        .navigationBarTitle("Weather List", displayMode: .inline)
+        .navigationBarTitle(" ", displayMode: .inline)
         .foregroundColor(Color.accentColor)
         }//NvigationView
     }

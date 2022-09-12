@@ -13,7 +13,7 @@ class AddCityViewModel: ObservableObject {
     
     func add(completion: @escaping (ForecastViewModel) -> Void) {
         
-        WebService().getForecastBy(search: city) { result in
+        WebService().getForecastBy(city: city) { result in
             switch result {
             case .success(let myWeather):
                 DispatchQueue.main.async {

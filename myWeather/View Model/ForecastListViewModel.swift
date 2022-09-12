@@ -16,20 +16,26 @@ enum LoadingState {
 class ForecastListViewModel: ObservableObject {
     
     @Published var loadingState: LoadingState = .none
-    @Published var myWeather: MyWeather!
+    @Published var myWeather: MyWeather?
+//    @Published var shouldShowLocationError: Bool = false
+    
     
     let webService = WebService()
-    let locationManager = CLLocationManager()
     
-    func searchByCity(_ city: String) {
+    init(myWeather: MyWeather? = nil) {
+        self.myWeather = myWeather
+    }
+
+//    func searchByCity(_ city: String) {
+//
+//        if city.isEmpty {
+//            return
+//        }
+//
+//        self.loadingState = .loading
+    func getForecastByCity(city: String) {
         
-        if city.isEmpty {
-            return
-        }
-        
-        self.loadingState = .loading
-        
-        webService.getForecastBy(search: city.trimmedAndEscaped()) { result in
+        webService.getForecastBy(city: city.trimmedAndEscaped()) { result in
             switch result {
             case .success(let myWeather):
                 if let myWeather = myWeather {
@@ -45,21 +51,22 @@ class ForecastListViewModel: ObservableObject {
         }
     }
     
-    func getLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        
-            webService.getLocationBy(latitude: latitude, longitude: longitude) { result in
-                switch result {
-                case .success(let myWeather):
-                    if let myWeather = myWeather {
-                        DispatchQueue.main.async {
-                            self.myWeather = myWeather
-                            self.loadingState = .success
-                        }
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    self.loadingState = .failed
-                }
-            }
-        }
-    }
+//    func getLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+//
+//            webService.getLocationBy(latitude: latitude, longitude: longitude) { result in
+//                switch result {
+//                case .success(let myWeather):
+//                    if let myWeather = myWeather {
+//                        DispatchQueue.main.async {
+//                            self.myWeather = myWeather
+//                            self.loadingState = .success
+//                        }
+//                    }
+//                case .failure(let error):
+//                    print(error.localizedDescription)
+//                    self.loadingState = .failed
+//                }
+//            }
+//        }
+//    }
+}

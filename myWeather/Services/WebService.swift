@@ -14,12 +14,33 @@ enum NetworkError: Error {
     case decodingError
 }
 
-
 class WebService {
     
-    func getForecastBy(search: String, completion: @escaping (Result<MyWeather?, NetworkError>) -> Void) {
+    private let locationManager = CLLocationManager()
+
+// MARK: - Get Location
+
+    func getCurrentWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async throws -> MyWeather {
         
-        guard let url = URL.getForecastByCity(search)
+        guard let url = URL.getForecastByLocation(latitude: latitude, longitude: longitude)
+        else { fatalError("Missing URL") }
+
+
+        let urlRequest = URLRequest(url: url)
+        
+        let (data, response) = try await URLSession.shared.data(for: urlRequest)
+        
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else { fatalError("Error while fetching data") }
+        
+        let decodedData = try JSONDecoder().decode(Forecast.self, from: data)
+        
+        return MyWeather(forecast: decodedData)
+    }
+// MARK: - Get Forecst by City
+
+    func getForecastBy(city: String, completion: @escaping (Result<MyWeather?, NetworkError>) -> Void) {
+        
+        guard let url = URL.getForecastByCity(city)
         else {
             return completion(.failure(.badURL))
         }
@@ -35,33 +56,98 @@ class WebService {
                 return completion(.failure(.decodingError))
             }
             
-            completion(.success(forecast.myWeather))
+            completion(.success(MyWeather(forecast: forecast)))
             
         }.resume()
         
     }
+      
+  }
     
-    func getLocationBy(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping ((Result<MyWeather?,  NetworkError>) -> Void)) {
-        //    func getLocationBy(latitude: lat, longitude: lon, completion: @escaping ((Result<Forecast.City, NetworkError>) -> Void)) {
-        
-        guard let url = URL.getForecastByLocation(latitude: latitude, longitude: longitude)
-        else {
-            return completion(.failure(.badURL))
-        }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            
-            guard let data = data, error == nil else {
-                return completion(.failure(.noData))
-            }
-            
-            guard let forecast = try? JSONDecoder().decode(Forecast.self, from: data)
-            else {
-                return completion(.failure(.decodingError))
-            }
-            
-            completion(.success(forecast.myWeather))
-            
-        }.resume()
-    }
-}
+//    func getLocationBy(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping ((Result<MyWeather?,  NetworkError>) -> Void)) {
+//        //    func getLocationBy(latitude: lat, longitude: lon, completion: @escaping ((Result<Forecast.City, NetworkError>) -> Void)) {
+//
+//        guard let url = URL.getForecastByLocation(latitude: latitude, longitude: longitude)
+//        else {
+//            return completion(.failure(.badURL))
+//        }
+//
+//        URLSession.shared.dataTask(with: url) { (data, response, error) in
+//
+//            guard let data = data, error == nil else {
+//                return completion(.failure(.noData))
+//            }
+//
+//            guard let forecast = try? JSONDecoder().decode(Forecast.self, from: data)
+//            else {
+//                return completion(.failure(.decodingError))
+//            }
+//
+//            completion(.success(MyWeather(forecast: forecast)))
+//
+//        }.resume()
+//    }
+//}
+
+//public override init() {
+//      super.init()
+//      locationManager.delegate = self
+//    }
+//
+//    public func loadWeatherData(
+//      _ completionHandler: @escaping((MyWeather?, LocationAuthError?) -> Void)
+//    ) {
+//      self.completionHandler = completionHandler
+//      loadDataOrRequestLocationAuth()
+//    }
+//
+//    private func makeDataRequest(forCoordinates coordinates: CLLocationCoordinate2D) {
+//        guard let url = URL.getForecastByLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
+//        else {
+//            return
+//        }
+//
+//      URLSession.shared.dataTask(with: url) { data, response, error in
+//
+//        guard error == nil, let data = data else { return }
+//
+//        guard let forecast = try? JSONDecoder().decode(Forecast.self, from: data)
+//        else {
+//            return
+//        }
+//
+//          self.completionHandler?(MyWeather(forecast: forecast), nil)
+//
+//      }.resume()
+//    }
+//
+//    private func loadDataOrRequestLocationAuth() {
+//      switch locationManager.authorizationStatus {
+//      case .authorizedAlways, .authorizedWhenInUse:
+//        locationManager.startUpdatingLocation()
+//      case .denied, .restricted:
+//        completionHandler?(nil, LocationAuthError())
+//      default:
+//        locationManager.requestWhenInUseAuthorization()
+//      }
+//    }
+//  }
+//
+//  extension WebService: CLLocationManagerDelegate {
+//    public func locationManager(
+//      _ manager: CLLocationManager,
+//      didUpdateLocations locations: [CLLocation]
+//    ) {
+//      guard let location = locations.first else { return }
+//        makeDataRequest(forCoordinates: location.coordinate)
+//    }
+//
+//    public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+//      loadDataOrRequestLocationAuth()
+//    }
+//    public func locationManager(
+//      _ manager: CLLocationManager,
+//      didFailWithError error: Error
+//    ) {
+//      print("Something went wrong: \(error.localizedDescription)")
+//    }

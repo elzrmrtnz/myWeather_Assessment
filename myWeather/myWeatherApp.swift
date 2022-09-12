@@ -11,8 +11,10 @@ import SwiftUI
 struct myWeatherApp: App {
     var body: some Scene {
         WindowGroup {
-            ForecastListScreen()
+            ContentView()
                 .environmentObject(Store())
+//            ForecastListScreen()
+//                .environmentObject(Store())
         }
     }
 }

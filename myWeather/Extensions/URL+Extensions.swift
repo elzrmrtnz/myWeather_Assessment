@@ -15,7 +15,7 @@ extension URL {
     }
     
     static func getForecastByLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees) -> URL? {
-        return URL(string: "api.openweathermap.org/data/2.5/forecast?lat=\(latitude)&lon=\(longitude)&appid=\(Constants.API_KEY)&units=metric")
+        return URL(string: "https://api.openweathermap.org/data/2.5/forecast?lat=\(latitude)&lon=\(longitude)&appid=\(Constants.API_KEY)&units=metric")
     }
     
     static func weatherIcon(icon: String) -> String {
