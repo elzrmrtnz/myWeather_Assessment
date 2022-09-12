@@ -13,17 +13,17 @@ struct CurrentWeatherView: View {
 
     var body: some View {
         
+        VStack (alignment: .center, spacing: 10) {
+            Text(myWeather.city)
+                .font(.title)
+                .bold()
+                .foregroundColor(.white)
+            Text(myWeather.date0.formatAsString())
+                .font(.title2)
+                .foregroundColor(.white)
+        }//vstack
+        .padding()
             ScrollView(showsIndicators: false) {
-                VStack (alignment: .center, spacing: 10) {
-                    Text(myWeather.city)
-                        .font(.title)
-                        .bold()
-                        .foregroundColor(.white)
-                    Text(myWeather.date0.formatAsString())
-                        .font(.title2)
-                        .foregroundColor(.white)
-                }//vstack
-                .padding()
             VStack(spacing: 10) {
                 Text("Today")
                     .font(.title)

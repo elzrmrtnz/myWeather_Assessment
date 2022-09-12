@@ -61,18 +61,13 @@ struct FavoriteListScreen: View {
             Image(systemName: "location.circle.fill")
                 .foregroundColor(Color("iconColor"))
                 .font(.title)
-        }),trailing: Button(action: {
-                self.showAdd.toggle()
-            }, label: {
-                Image(systemName: "plus.square.fill")
-                    .foregroundColor(Color("iconColor"))
-                    .font(.title)
-            }))
+        }),trailing: EditButton())
         .navigationBarTitle(" ", displayMode: .inline)
         .foregroundColor(Color.accentColor)
         }//NvigationView
     }
 }
+
 
 struct FavoriteListScreen_Previews: PreviewProvider {
     static var previews: some View {

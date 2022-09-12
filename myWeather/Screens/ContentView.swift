@@ -22,8 +22,8 @@ struct ContentView: View {
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
             VStack {
-                NavigationBarView()
-                    .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
+//                NavigationBarView()
+//                    .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
                 HStack{
                     Text(" ")
                 }
