@@ -63,7 +63,7 @@ struct ContentView: View {
                 FavoriteListScreen()
             }
         }//Zstack
-        .ignoresSafeArea(.all, edges: .top)
+//        .ignoresSafeArea(.all, edges: .top)
     }
 }
 

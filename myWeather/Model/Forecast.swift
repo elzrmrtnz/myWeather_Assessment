@@ -111,29 +111,29 @@ struct MyWeather: Codable {
         date0 = forecast.list[0].dt
 
         temperature1 = forecast.list[8].main.temp
-        tempMax1 = forecast.list[0].main.max
-        tempMin1 = forecast.list[0].main.min
+        tempMax1 = forecast.list[8].main.max
+        tempMin1 = forecast.list[8].main.min
         icon1 = forecast.list[8].weather[0].icon
         description1 = forecast.list[8].weather[0].description
         date1 = forecast.list[8].dt
 
         temperature2 = forecast.list[16].main.temp
-        tempMax2 = forecast.list[0].main.max
-        tempMin2 = forecast.list[0].main.min
+        tempMax2 = forecast.list[16].main.max
+        tempMin2 = forecast.list[16].main.min
         icon2 = forecast.list[16].weather[0].icon
         description2 = forecast.list[16].weather[0].description
         date2 = forecast.list[16].dt
 
         temperature3 = forecast.list[24].main.temp
-        tempMax3 = forecast.list[0].main.max
-        tempMin3 = forecast.list[0].main.min
+        tempMax3 = forecast.list[24].main.max
+        tempMin3 = forecast.list[24].main.min
         icon3 = forecast.list[24].weather[0].icon
         description3 = forecast.list[24].weather[0].description
         date3 = forecast.list[24].dt
 
         temperature4 = forecast.list[32].main.temp
-        tempMax4 = forecast.list[0].main.max
-        tempMin4 = forecast.list[0].main.min
+        tempMax4 = forecast.list[32].main.max
+        tempMin4 = forecast.list[32].main.min
         icon4 = forecast.list[32].weather[0].icon
         description4 = forecast.list[32].weather[0].description
         date4 = forecast.list[32].dt

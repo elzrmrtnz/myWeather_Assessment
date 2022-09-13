@@ -49,20 +49,31 @@ struct FavoriteListScreen: View {
                         }
                         .padding()
                     }//ScrollView
+                    Spacer()
+                    
+                    Button(action: {
+                        withAnimation(.easeIn) {
+                            store.showingList = false
+                        }
+                    }, label: {
+                        Image(systemName: "location.circle.fill")
+                            .foregroundColor(Color("iconColor"))
+                            .font(.title)
+                    })
                 }//Vstack
             }//Zstack
         
 // MARK: - NavigationBar
-        .navigationBarItems(leading: Button(action: {
-            withAnimation(.easeIn) {
-                store.showingList = false
-            }
-        }, label: {
-            Image(systemName: "location.circle.fill")
-                .foregroundColor(Color("iconColor"))
-                .font(.title)
-        }),trailing: EditButton())
-        .navigationBarTitle(" ", displayMode: .inline)
+//        .navigationBarItems(leading: Button(action: {
+//            withAnimation(.easeIn) {
+//                store.showingList = false
+//            }
+//        }, label: {
+//            Image(systemName: "location.circle.fill")
+//                .foregroundColor(Color("iconColor"))
+//                .font(.title)
+//        }),trailing: EditButton())
+        .navigationBarTitle("myWeather")
         .foregroundColor(Color.accentColor)
         }//NvigationView
     }
