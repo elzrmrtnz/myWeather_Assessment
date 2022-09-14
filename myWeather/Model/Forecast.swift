@@ -55,6 +55,7 @@ struct Main: Codable {
 }
 
 struct Weather: Codable {
+    let id: Int
     let description: String
     let icon: String
 
@@ -76,6 +77,7 @@ struct MyWeather: Codable {
     let temperature1: Double
     let tempMax1: Double
     let tempMin1: Double
+    let id: Int
     let icon1: String
     let description1: String
     let date1: Date
@@ -106,6 +108,7 @@ struct MyWeather: Codable {
         temperature0 = forecast.list[0].main.temp
         tempMax0 = forecast.list[0].main.max
         tempMin0 = forecast.list[0].main.min
+        id = forecast.list[0].weather[0].id
         icon0 = forecast.list[0].weather[0].icon
         description0 = forecast.list[0].weather[0].description
         date0 = forecast.list[0].dt

@@ -13,20 +13,25 @@ struct ForecastScreen: View {
     @ObservedObject var forecastListVM = ForecastListViewModel()
     
     var body: some View {
-        VStack {
-            
-            if forecastListVM.loadingState == .loading {
-                LoadingView()
-            } else if forecastListVM.loadingState == .success {
-                ForecastListView(myWeather: self.forecastListVM.myWeather!)
-            } else if forecastListVM.loadingState == .failed {
-                FailedView()
+        ZStack {
+            Image("background-image")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                
+                if forecastListVM.loadingState == .loading {
+                    LoadingView()
+                } else if forecastListVM.loadingState == .success {
+                    ForecastListView(myWeather: self.forecastListVM.myWeather!)
+                } else if forecastListVM.loadingState == .failed {
+                    FailedView()
+                }
+                
             }
             
-        }
-        
-        .onAppear {
-            self.forecastListVM.getForecastByCity(city: self.city)
+            .onAppear {
+                self.forecastListVM.getForecastByCity(city: self.city)
+            }
         }
     }
 }

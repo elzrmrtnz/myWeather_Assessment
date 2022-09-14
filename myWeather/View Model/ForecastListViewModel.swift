@@ -26,13 +26,6 @@ class ForecastListViewModel: ObservableObject {
         self.myWeather = myWeather
     }
 
-//    func searchByCity(_ city: String) {
-//
-//        if city.isEmpty {
-//            return
-//        }
-//
-//        self.loadingState = .loading
     func getForecastByCity(city: String) {
         
         webService.getForecastBy(city: city.trimmedAndEscaped()) { result in
@@ -50,23 +43,4 @@ class ForecastListViewModel: ObservableObject {
             }
         }
     }
-    
-//    func getLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-//
-//            webService.getLocationBy(latitude: latitude, longitude: longitude) { result in
-//                switch result {
-//                case .success(let myWeather):
-//                    if let myWeather = myWeather {
-//                        DispatchQueue.main.async {
-//                            self.myWeather = myWeather
-//                            self.loadingState = .success
-//                        }
-//                    }
-//                case .failure(let error):
-//                    print(error.localizedDescription)
-//                    self.loadingState = .failed
-//                }
-//            }
-//        }
-//    }
 }
