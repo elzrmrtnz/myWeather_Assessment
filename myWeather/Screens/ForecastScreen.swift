@@ -26,7 +26,7 @@ struct ForecastScreen: View {
                 } else if forecastListVM.loadingState == .failed {
                     FailedView()
                 }
-                
+                Spacer()
             }
             
             .onAppear {

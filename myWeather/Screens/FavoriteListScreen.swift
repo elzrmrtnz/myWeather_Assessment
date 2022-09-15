@@ -27,9 +27,9 @@ struct FavoriteListScreen: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Image("background-image")
-                    .resizable()
-                    .edgesIgnoringSafeArea(.all)
+//                Image("background-image")
+//                    .resizable()
+//                    .edgesIgnoringSafeArea(.all)
                 VStack {
                     TextField("Search for a city", text: $addCityVM.city, onEditingChanged: {
                         _ in }, onCommit: {
@@ -41,14 +41,16 @@ struct FavoriteListScreen: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                     
-                    ScrollView {
+                   List {
                         ForEach(store.weatherList, id: \.city) { myWeather in
                             NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
                                 WeatherCell(myWeather: myWeather)
                             }
                         }
-                        .padding()
+                        .onDelete(perform: { indexSet in
+                            store.weatherList.remove(atOffsets: indexSet)})
                     }//ScrollView
+                    
                     Spacer()
                     
                     Button(action: {
@@ -64,7 +66,8 @@ struct FavoriteListScreen: View {
             }//Zstack
         
 // MARK: - NavigationBar
-//        .navigationBarItems(leading: Button(action: {
+//        .navigationBarItems(trailing: EditButton())
+//        leading: Button(action: {
 //            withAnimation(.easeIn) {
 //                store.showingList = false
 //            }
@@ -113,6 +116,9 @@ struct WeatherCell: View {
         }//Hstack
         .padding()
         .background(RoundedRectangle(cornerRadius: 15).stroke())
+//        .background(Color(#colorLiteral(red: 0.9133135676, green: 0.9335765243, blue: 0.98070997, alpha: 1)))
+//        .clipShape(RoundedRectangle(cornerRadius: 10, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
+
 
     }
 }

@@ -30,6 +30,7 @@ struct DateList: Codable {
     let dt: Date
     let main: Main
     let weather: [Weather]
+    let wind: Wind
 
 //     enum CodingKeys: String, CodingKey {
 //        case dt = "dt"
@@ -43,11 +44,13 @@ struct Main: Codable {
     let temp: Double
     let max: Double
     let min: Double
+    let hum: Double
 
     enum CodingKeys: String, CodingKey {
         case temp = "temp"
         case max = "temp_max"
         case min = "temp_min"
+        case hum = "humidity"
     }
 
 
@@ -65,11 +68,18 @@ struct Weather: Codable {
 //    }
 }
 
+struct Wind: Codable {
+    let speed: Double
+}
+
 struct MyWeather: Codable {
     let city: String
     let temperature0: Double
     let tempMax0: Double
     let tempMin0: Double
+    let id: Int
+    let hum: Double
+    let speed: Double
     let icon0: String
     let description0: String
     let date0: Date
@@ -77,7 +87,6 @@ struct MyWeather: Codable {
     let temperature1: Double
     let tempMax1: Double
     let tempMin1: Double
-    let id: Int
     let icon1: String
     let description1: String
     let date1: Date
@@ -109,6 +118,8 @@ struct MyWeather: Codable {
         tempMax0 = forecast.list[0].main.max
         tempMin0 = forecast.list[0].main.min
         id = forecast.list[0].weather[0].id
+        hum = forecast.list[0].main.hum
+        speed = forecast.list[0].wind.speed
         icon0 = forecast.list[0].weather[0].icon
         description0 = forecast.list[0].weather[0].description
         date0 = forecast.list[0].dt
