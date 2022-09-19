@@ -27,18 +27,31 @@ struct FavoriteListScreen: View {
     var body: some View {
         NavigationView {
             ZStack {
+                if store.showingList == false {
 //                Image("background-image")
 //                    .resizable()
 //                    .edgesIgnoringSafeArea(.all)
                 VStack {
-                    TextField("Search for a city", text: $addCityVM.city, onEditingChanged: {
-                        _ in }, onCommit: {
-                            addCityVM.add { myWeather in
-                                store.addWeather(myWeather)
-                        }
-                    })
-                    .foregroundColor(.accentColor)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    HStack(spacing: 10) {
+                        Button(action: {
+                            withAnimation(.easeIn) {
+                                store.showingList = true
+                            }
+                        }, label: {
+                            Image(systemName: "location.circle.fill")
+                                .foregroundColor(Color("iconColor"))
+                                .font(.title)
+                        })
+                        
+                        TextField("Search for a city", text: $addCityVM.city, onEditingChanged: {
+                            _ in }, onCommit: {
+                                addCityVM.add { myWeather in
+                                    store.addWeather(myWeather)
+                            }
+                        })
+                        .foregroundColor(.accentColor)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
                     .padding(.horizontal)
                     
                    List {
@@ -51,20 +64,14 @@ struct FavoriteListScreen: View {
                             store.weatherList.remove(atOffsets: indexSet)})
                     }//ScrollView
                     
-                    Spacer()
                     
-                    Button(action: {
-                        withAnimation(.easeIn) {
-                            store.showingList = false
-                        }
-                    }, label: {
-                        Image(systemName: "location.circle.fill")
-                            .foregroundColor(Color("iconColor"))
-                            .font(.title)
-                    })
                 }//Vstack
+                } else {
+                    ContentView()
+                        .navigationBarHidden(true)
+                }
             }//Zstack
-        
+            
 // MARK: - NavigationBar
 //        .navigationBarItems(trailing: EditButton())
 //        leading: Button(action: {

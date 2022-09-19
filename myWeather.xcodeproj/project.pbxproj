@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA06EF2A28D86B1800F58406 /* CurrentWeatherList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA06EF2928D86B1800F58406 /* CurrentWeatherList.swift */; };
 		CA30590828A3D5DF003946DD /* myWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA30590728A3D5DF003946DD /* myWeatherApp.swift */; };
 		CA30590C28A3D5E6003946DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA30590B28A3D5E6003946DD /* Assets.xcassets */; };
 		CA30590F28A3D5E6003946DD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA30590E28A3D5E6003946DD /* Preview Assets.xcassets */; };
@@ -45,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CA06EF2928D86B1800F58406 /* CurrentWeatherList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherList.swift; sourceTree = "<group>"; };
 		CA30590428A3D5DF003946DD /* myWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA30590728A3D5DF003946DD /* myWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myWeatherApp.swift; sourceTree = "<group>"; };
 		CA30590B28A3D5E6003946DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				CA96CB9D28CB2E1C00AFC513 /* CurrentWeatherView.swift */,
+				CA06EF2928D86B1800F58406 /* CurrentWeatherList.swift */,
 				CA30593A28A4D5AF003946DD /* ForecastListView.swift */,
 				CAC1C01C28D3304400F5D859 /* AddCityScreen.swift */,
 				CAC1C01628D2E05E00F5D859 /* WeatherRow.swift */,
@@ -330,6 +333,7 @@
 				CA96CBA028CB322700AFC513 /* LocationViewModel.swift in Sources */,
 				CAC1C01F28D3305400F5D859 /* WeatherListScreen.swift in Sources */,
 				CA30593D28A4D749003946DD /* Date+Extensions.swift in Sources */,
+				CA06EF2A28D86B1800F58406 /* CurrentWeatherList.swift in Sources */,
 				CA30593928A4D4BF003946DD /* LoadingView.swift in Sources */,
 				CA30592B28A3E585003946DD /* URL+Extensions.swift in Sources */,
 				CA96CB9428CB113400AFC513 /* WelcomeScreen.swift in Sources */,

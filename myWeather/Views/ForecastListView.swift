@@ -199,15 +199,13 @@ struct ForecastListView: View {
             .background(RoundedRectangle(cornerRadius: 10).fill(LinearGradient(gradient: Gradient(colors: [Color.gray.opacity(0.5), Color.gray]), startPoint: .top, endPoint: .bottom)).opacity(0.5))
             .shadow(color: Color.white.opacity(0.1), radius: 2, x: -2, y: -2)
             .shadow(color: Color.black.opacity(0.2), radius: 2, x: 2, y: 2)
-
+            
         }
-
-
     }
-
-//struct ForecastListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ForecastListView()
-//    }
 }
 
+struct ForecastListView_Previews: PreviewProvider {
+    static var previews: some View {
+        ForecastListView(myWeather: previewWeather)
+    }
+}

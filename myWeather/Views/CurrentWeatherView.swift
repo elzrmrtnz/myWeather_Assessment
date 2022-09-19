@@ -64,7 +64,7 @@ struct CurrentWeatherView: View {
                 }
             }
             .padding()
-            .frame(width: 350, height: 180)
+            .frame(width: 350, height: 150)
             .foregroundColor(Color.white)
             .background(RoundedRectangle(cornerRadius: 10).fill(LinearGradient(gradient: Gradient(colors: [Color.gray.opacity(0.5), Color.gray]), startPoint: .top, endPoint: .bottom)).opacity(0.5))
             .shadow(color: Color.white.opacity(0.1), radius: 2, x: -2, y: -2)
