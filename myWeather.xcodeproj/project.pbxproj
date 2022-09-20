@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CA06EF2A28D86B1800F58406 /* CurrentWeatherList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA06EF2928D86B1800F58406 /* CurrentWeatherList.swift */; };
+		CA06EF4B28D9C70500F58406 /* WeatherDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA06EF4A28D9C70500F58406 /* WeatherDay.swift */; };
 		CA30590828A3D5DF003946DD /* myWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA30590728A3D5DF003946DD /* myWeatherApp.swift */; };
 		CA30590C28A3D5E6003946DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA30590B28A3D5E6003946DD /* Assets.xcassets */; };
 		CA30590F28A3D5E6003946DD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA30590E28A3D5E6003946DD /* Preview Assets.xcassets */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		CA06EF2928D86B1800F58406 /* CurrentWeatherList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherList.swift; sourceTree = "<group>"; };
+		CA06EF4A28D9C70500F58406 /* WeatherDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDay.swift; sourceTree = "<group>"; };
 		CA30590428A3D5DF003946DD /* myWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA30590728A3D5DF003946DD /* myWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myWeatherApp.swift; sourceTree = "<group>"; };
 		CA30590B28A3D5E6003946DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				CA30593A28A4D5AF003946DD /* ForecastListView.swift */,
 				CAC1C01C28D3304400F5D859 /* AddCityScreen.swift */,
 				CAC1C01628D2E05E00F5D859 /* WeatherRow.swift */,
+				CA06EF4A28D9C70500F58406 /* WeatherDay.swift */,
 				CABE077528ACC04200C82596 /* SettingsScreen.swift */,
 				CA30593628A4D4BF003946DD /* FailedView.swift */,
 				CA30593728A4D4BF003946DD /* LoadingView.swift */,
@@ -317,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAC5E4B628AA8A3B00524EA0 /* FavoriteListScreen.swift in Sources */,
+				CA06EF4B28D9C70500F58406 /* WeatherDay.swift in Sources */,
 				CABE076E28AB217F00C82596 /* UserDefaults+Extensions.swift in Sources */,
 				CA96CB9828CB2A6600AFC513 /* ModelData.swift in Sources */,
 				CABE077828AD26E800C82596 /* AddCityViewModel.swift in Sources */,
