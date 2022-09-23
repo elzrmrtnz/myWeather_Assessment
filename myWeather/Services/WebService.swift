@@ -18,7 +18,7 @@ class WebService {
     
     private let locationManager = CLLocationManager()
 
-// MARK: - Get Location
+// MARK: - Get Forecast By Location
 
     func getCurrentWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async throws -> MyWeather {
         
@@ -32,11 +32,12 @@ class WebService {
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { fatalError("Error while fetching data") }
         
-        let decodedData = try JSONDecoder().decode(Forecast.self, from: data)
+        let forecast = try JSONDecoder().decode(Forecast.self, from: data)
         
-        return MyWeather(forecast: decodedData)
+        return MyWeather(forecast: forecast)
     }
-// MARK: - Get Forecst by City
+    
+// MARK: - Get Forecst by City Name
 
     func getForecastBy(city: String, completion: @escaping (Result<MyWeather?, NetworkError>) -> Void) {
         

@@ -33,7 +33,7 @@ struct FooterView: View {
             
             Button {
                 withAnimation(.easeIn) {
-                    store.showingList = true
+                    store.showingList = false
                 }
             } label: {
                 Image(systemName: "list.bullet")

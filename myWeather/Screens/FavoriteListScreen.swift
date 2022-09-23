@@ -27,52 +27,71 @@ struct FavoriteListScreen: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Image("background-image")
-                    .resizable()
-                    .edgesIgnoringSafeArea(.all)
+                if store.showingList == false {
+//                Image("background-image")
+//                    .resizable()
+//                    .edgesIgnoringSafeArea(.all)
                 VStack {
-                    TextField("Search for a city", text: $addCityVM.city, onEditingChanged: {
-                        _ in }, onCommit: {
-                            addCityVM.add { myWeather in
-                                store.addWeather(myWeather)
-                        }
-                    })
-                    .foregroundColor(.accentColor)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    HStack(spacing: 10) {
+                        Button(action: {
+                            withAnimation(.easeIn) {
+                                store.showingList = true
+                            }
+                        }, label: {
+                            Image(systemName: "location.circle.fill")
+                                .foregroundColor(Color("iconColor"))
+                                .font(.title)
+                        })
+                        
+                        TextField("Search for a city", text: $addCityVM.city, onEditingChanged: {
+                            _ in }, onCommit: {
+                                addCityVM.add { myWeather in
+                                    store.addWeather(myWeather)
+                            }
+                        })
+                        .foregroundColor(.accentColor)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
                     .padding(.horizontal)
                     
-                    ScrollView {
+                   List {
+                       
+                       
+                       
                         ForEach(store.weatherList, id: \.city) { myWeather in
                             NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
                                 WeatherCell(myWeather: myWeather)
                             }
                         }
-                        .padding()
+                        .onDelete(perform: { indexSet in
+                            store.weatherList.remove(atOffsets: indexSet)})
                     }//ScrollView
+                    
+                    
                 }//Vstack
+                } else {
+                    ContentView()
+                        .navigationBarHidden(true)
+                }
             }//Zstack
-        
+            
 // MARK: - NavigationBar
-        .navigationBarItems(leading: Button(action: {
-            withAnimation(.easeIn) {
-                store.showingList = false
-            }
-        }, label: {
-            Image(systemName: "location.circle.fill")
-                .foregroundColor(Color("iconColor"))
-                .font(.title)
-        }),trailing: Button(action: {
-                self.showAdd.toggle()
-            }, label: {
-                Image(systemName: "plus.square.fill")
-                    .foregroundColor(Color("iconColor"))
-                    .font(.title)
-            }))
-        .navigationBarTitle(" ", displayMode: .inline)
+//        .navigationBarItems(trailing: EditButton())
+//        leading: Button(action: {
+//            withAnimation(.easeIn) {
+//                store.showingList = false
+//            }
+//        }, label: {
+//            Image(systemName: "location.circle.fill")
+//                .foregroundColor(Color("iconColor"))
+//                .font(.title)
+//        }),trailing: EditButton())
+        .navigationBarTitle("myWeather")
         .foregroundColor(Color.accentColor)
         }//NvigationView
     }
 }
+
 
 struct FavoriteListScreen_Previews: PreviewProvider {
     static var previews: some View {
@@ -107,6 +126,9 @@ struct WeatherCell: View {
         }//Hstack
         .padding()
         .background(RoundedRectangle(cornerRadius: 15).stroke())
+//        .background(Color(#colorLiteral(red: 0.9133135676, green: 0.9335765243, blue: 0.98070997, alpha: 1)))
+//        .clipShape(RoundedRectangle(cornerRadius: 10, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
+
 
     }
 }

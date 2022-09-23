@@ -10,44 +10,30 @@ import Foundation
 struct Forecast: Codable {
     let city: City
     let list: [DateList]
-
-
-//    enum CodingKeys: String, CodingKey {
-//        case city = "city"
-//        case list = "list"
-//    }
 }
 
 struct City: Codable {
     let name: String
-
-//    enum CodingKeys: String, CodingKey {
-//        case name = "name"
-//    }
 }
 
 struct DateList: Codable {
     let dt: Date
     let main: Main
     let weather: [Weather]
-
-//     enum CodingKeys: String, CodingKey {
-//        case dt = "dt"
-//        case main = "main"
-//        case weather = "weather"
-//    }
-
+    let wind: Wind
 }
 
 struct Main: Codable {
     let temp: Double
     let max: Double
     let min: Double
+    let hum: Double
 
     enum CodingKeys: String, CodingKey {
         case temp = "temp"
         case max = "temp_max"
         case min = "temp_min"
+        case hum = "humidity"
     }
 
 
@@ -55,13 +41,13 @@ struct Main: Codable {
 }
 
 struct Weather: Codable {
+    let id: Int
     let description: String
     let icon: String
+}
 
-//    enum CodingKeys: String, CodingKey {
-//        case description = "description"
-//        case icon = "icon"
-//    }
+struct Wind: Codable {
+    let speed: Double
 }
 
 struct MyWeather: Codable {
@@ -69,6 +55,9 @@ struct MyWeather: Codable {
     let temperature0: Double
     let tempMax0: Double
     let tempMin0: Double
+    let id: Int
+    let hum: Double
+    let speed: Double
     let icon0: String
     let description0: String
     let date0: Date
@@ -106,34 +95,37 @@ struct MyWeather: Codable {
         temperature0 = forecast.list[0].main.temp
         tempMax0 = forecast.list[0].main.max
         tempMin0 = forecast.list[0].main.min
+        id = forecast.list[0].weather[0].id
+        hum = forecast.list[0].main.hum
+        speed = forecast.list[0].wind.speed
         icon0 = forecast.list[0].weather[0].icon
         description0 = forecast.list[0].weather[0].description
         date0 = forecast.list[0].dt
 
         temperature1 = forecast.list[8].main.temp
-        tempMax1 = forecast.list[0].main.max
-        tempMin1 = forecast.list[0].main.min
+        tempMax1 = forecast.list[8].main.max
+        tempMin1 = forecast.list[8].main.min
         icon1 = forecast.list[8].weather[0].icon
         description1 = forecast.list[8].weather[0].description
         date1 = forecast.list[8].dt
 
         temperature2 = forecast.list[16].main.temp
-        tempMax2 = forecast.list[0].main.max
-        tempMin2 = forecast.list[0].main.min
+        tempMax2 = forecast.list[16].main.max
+        tempMin2 = forecast.list[16].main.min
         icon2 = forecast.list[16].weather[0].icon
         description2 = forecast.list[16].weather[0].description
         date2 = forecast.list[16].dt
 
         temperature3 = forecast.list[24].main.temp
-        tempMax3 = forecast.list[0].main.max
-        tempMin3 = forecast.list[0].main.min
+        tempMax3 = forecast.list[24].main.max
+        tempMin3 = forecast.list[24].main.min
         icon3 = forecast.list[24].weather[0].icon
         description3 = forecast.list[24].weather[0].description
         date3 = forecast.list[24].dt
 
         temperature4 = forecast.list[32].main.temp
-        tempMax4 = forecast.list[0].main.max
-        tempMin4 = forecast.list[0].main.min
+        tempMax4 = forecast.list[32].main.max
+        tempMin4 = forecast.list[32].main.min
         icon4 = forecast.list[32].weather[0].icon
         description4 = forecast.list[32].weather[0].description
         date4 = forecast.list[32].dt
