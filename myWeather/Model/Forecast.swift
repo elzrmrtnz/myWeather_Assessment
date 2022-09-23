@@ -10,20 +10,10 @@ import Foundation
 struct Forecast: Codable {
     let city: City
     let list: [DateList]
-
-
-//    enum CodingKeys: String, CodingKey {
-//        case city = "city"
-//        case list = "list"
-//    }
 }
 
 struct City: Codable {
     let name: String
-
-//    enum CodingKeys: String, CodingKey {
-//        case name = "name"
-//    }
 }
 
 struct DateList: Codable {
@@ -31,13 +21,6 @@ struct DateList: Codable {
     let main: Main
     let weather: [Weather]
     let wind: Wind
-
-//     enum CodingKeys: String, CodingKey {
-//        case dt = "dt"
-//        case main = "main"
-//        case weather = "weather"
-//    }
-
 }
 
 struct Main: Codable {
@@ -61,11 +44,6 @@ struct Weather: Codable {
     let id: Int
     let description: String
     let icon: String
-
-//    enum CodingKeys: String, CodingKey {
-//        case description = "description"
-//        case icon = "icon"
-//    }
 }
 
 struct Wind: Codable {

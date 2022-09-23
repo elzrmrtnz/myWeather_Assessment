@@ -17,7 +17,7 @@ struct ContentView: View {
     var body: some View {
         
         ZStack {
-            
+//            if store.showingList == false {
             Image("background-image")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
@@ -65,7 +65,9 @@ struct ContentView: View {
                     .shadow(color: Color.black.opacity(0.2), radius: 2, x: 2, y: 2)
                    
             }//Vstack
-            
+//        } else {
+//            FavoriteListScreen()
+//        }
         }//Zstack
 //        .ignoresSafeArea(.all, edges: .top)
     }

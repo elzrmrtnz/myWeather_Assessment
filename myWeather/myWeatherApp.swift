@@ -13,7 +13,7 @@ struct myWeatherApp: App {
         WindowGroup {
 //            ContentView()
 //                .environmentObject(Store())
-//
+
             FavoriteListScreen()
                 .environmentObject(Store())
         }

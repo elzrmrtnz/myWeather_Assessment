@@ -18,7 +18,7 @@ class WebService {
     
     private let locationManager = CLLocationManager()
 
-// MARK: - Get Location
+// MARK: - Get Forecast By Location
 
     func getCurrentWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async throws -> MyWeather {
         
@@ -37,7 +37,7 @@ class WebService {
         return MyWeather(forecast: forecast)
     }
     
-// MARK: - Get Forecst by City
+// MARK: - Get Forecst by City Name
 
     func getForecastBy(city: String, completion: @escaping (Result<MyWeather?, NetworkError>) -> Void) {
         

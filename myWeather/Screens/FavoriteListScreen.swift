@@ -55,6 +55,9 @@ struct FavoriteListScreen: View {
                     .padding(.horizontal)
                     
                    List {
+                       
+                       
+                       
                         ForEach(store.weatherList, id: \.city) { myWeather in
                             NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
                                 WeatherCell(myWeather: myWeather)

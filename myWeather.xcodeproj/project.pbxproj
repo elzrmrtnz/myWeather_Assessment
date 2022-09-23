@@ -198,8 +198,8 @@
 				CA96CB9328CB113400AFC513 /* WelcomeScreen.swift */,
 				CA96CBA128CB3F6500AFC513 /* ContentView.swift */,
 				CAC5E4B528AA8A3B00524EA0 /* FavoriteListScreen.swift */,
-				CAC1C01E28D3305400F5D859 /* WeatherListScreen.swift */,
 				CA30593228A3FA9B003946DD /* ForecastScreen.swift */,
+				CAC1C01E28D3305400F5D859 /* WeatherListScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
