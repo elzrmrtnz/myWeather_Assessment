@@ -21,6 +21,15 @@ struct DateList: Codable {
     let main: Main
     let weather: [Weather]
     let wind: Wind
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let dtTimeInterval = try container.decode(Int32.self, forKey: .dt)
+        dt = Date(timeIntervalSince1970: TimeInterval(dtTimeInterval))
+        main = try container.decode(Main.self, forKey: .main)
+        weather = try container.decode([Weather].self, forKey: .weather)
+        wind = try container.decode(Wind.self, forKey: .wind)
+    }
 }
 
 struct Main: Codable {

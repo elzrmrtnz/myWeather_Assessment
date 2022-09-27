@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CoreLocationUI
 
 enum Sheets: Identifiable {
     
@@ -21,8 +21,12 @@ enum Sheets: Identifiable {
 struct FavoriteListScreen: View {
     
     @EnvironmentObject var store: Store
+//    @EnvironmentObject var locationManager: LocationViewModel
     @State var showAdd = false
     @StateObject private var addCityVM = AddCityViewModel()
+    @StateObject var locationManager = LocationViewModel()
+    var webService = WebService()
+    @State var myWeather: MyWeather!
     
     var body: some View {
         NavigationView {
@@ -33,15 +37,25 @@ struct FavoriteListScreen: View {
 //                    .edgesIgnoringSafeArea(.all)
                 VStack {
                     HStack(spacing: 10) {
-                        Button(action: {
-                            withAnimation(.easeIn) {
-                                store.showingList = true
-                            }
-                        }, label: {
-                            Image(systemName: "location.circle.fill")
-                                .foregroundColor(Color("iconColor"))
-                                .font(.title)
-                        })
+                        
+                        LocationButton(.shareCurrentLocation) {
+                            locationManager.requestLocation()
+                        }
+                        .frame(width: 30, height: 30)
+                        .cornerRadius(30)
+                        .symbolVariant(.fill)
+                        .foregroundColor(.white)
+                        .labelStyle(.iconOnly)
+                        .tint(Color.accentColor)
+//                        Button(action: {
+//                            withAnimation(.easeIn) {
+//                                store.showingList = true
+//                            }
+//                        }, label: {
+//                            Image(systemName: "location.circle.fill")
+//                                .foregroundColor(Color("iconColor"))
+//                                .font(.title)
+//                        })
                         
                         TextField("Search for a city", text: $addCityVM.city, onEditingChanged: {
                             _ in }, onCommit: {
@@ -56,7 +70,30 @@ struct FavoriteListScreen: View {
                     
                    List {
                        
-                       
+                       if let location = locationManager.location {
+                           if let myWeather = myWeather {
+                               NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
+                                   CurrentWeatherList(myWeather: myWeather)
+                               }
+                           } else {
+                               LoadingView()
+                                   .task {
+                                       do {
+                                           myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
+                                       } catch {
+                                           print("Error getting weather: \(error)")
+                                       }
+                                   }
+                           }
+                       } else {
+                               LoadingView()
+//                           if locationManager.isLoading {
+//                               LoadingView()
+//                           } else {
+//                               WelcomeView()
+//                                   .environmentObject(locationManager)
+//                           }
+                       }
                        
                         ForEach(store.weatherList, id: \.city) { myWeather in
                             NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
@@ -76,7 +113,7 @@ struct FavoriteListScreen: View {
             }//Zstack
             
 // MARK: - NavigationBar
-//        .navigationBarItems(trailing: EditButton())
+        .navigationBarItems(trailing: EditButton())
 //        leading: Button(action: {
 //            withAnimation(.easeIn) {
 //                store.showingList = false
@@ -111,10 +148,10 @@ struct WeatherCell: View {
                 Text(myWeather.city)
                     .fontWeight(.bold)
                 HStack {
-                    Text("\(myWeather.date0.formatAsString())")
+                    Text("\(myWeather.date0.formatAsString2())")
                 }
                 HStack {
-                    Text("\(myWeather.description0)")
+                    Text("\(myWeather.description0.capitalized)")
                 }
             }//Vstack
             Spacer()

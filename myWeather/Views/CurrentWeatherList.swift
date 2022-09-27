@@ -17,10 +17,10 @@ struct CurrentWeatherList: View {
                 Text(myWeather.city)
                     .fontWeight(.bold)
                 HStack {
-                    Text("\(myWeather.date0.formatAsString())")
+                    Text("\(myWeather.date0.formatAsString2())")
                 }
                 HStack {
-                    Text("\(myWeather.description0)")
+                    Text("\(myWeather.description0.capitalized)")
                 }
             }//Vstack
             Spacer()
