@@ -14,20 +14,28 @@ struct CurrentWeatherList: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 15) {
-                Text(myWeather.city)
+                VStack(alignment: .leading, spacing: 0) {
+                Text("My Location")
+                    .font(.title3)
                     .fontWeight(.bold)
-                HStack {
-                    Text("\(myWeather.date0.formatAsString2())")
+                
+                Text(myWeather.city)
+                    .font(.system(size: 12))
                 }
-                HStack {
-                    Text("\(myWeather.description0.capitalized)")
-                }
+                
+                Text("\(myWeather.date0.formatAsString2())")
             }//Vstack
             Spacer()
-            URLImage(url: URL.weatherIcon(icon: myWeather.icon0))
-                .frame(width: 50, height: 50)
+            VStack {
+                HStack {
+                URLImage(url: URL.weatherIcon(icon: myWeather.icon0))
+                    .frame(width: 40, height: 40)
 
-            Text(String(format: "%.0f°", myWeather.temperature0))
+                Text(String(format: "%.0f°", myWeather.temperature0))
+                        .font(.system(size: 30))
+                }
+                Text("\(myWeather.description0.capitalized)")
+            }
         }//Hstack
         .padding()
         .background(RoundedRectangle(cornerRadius: 15).stroke())

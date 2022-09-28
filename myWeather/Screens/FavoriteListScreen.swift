@@ -30,23 +30,23 @@ struct FavoriteListScreen: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                if store.showingList == false {
-//                Image("background-image")
-//                    .resizable()
-//                    .edgesIgnoringSafeArea(.all)
+//            ZStack {
+//                if store.showingList == false {
+////                Image("background-image")
+////                    .resizable()
+////                    .edgesIgnoringSafeArea(.all)
                 VStack {
                     HStack(spacing: 10) {
                         
-                        LocationButton(.shareCurrentLocation) {
-                            locationManager.requestLocation()
-                        }
-                        .frame(width: 30, height: 30)
-                        .cornerRadius(30)
-                        .symbolVariant(.fill)
-                        .foregroundColor(.white)
-                        .labelStyle(.iconOnly)
-                        .tint(Color.accentColor)
+//                        LocationButton(.currentLocation) {
+//                            locationManager.requestLocation()
+//                        }
+//                        .frame(width: 30, height: 30)
+//                        .cornerRadius(30)
+//                        .symbolVariant(.fill)
+//                        .foregroundColor(.white)
+//                        .labelStyle(.iconOnly)
+//                        .tint(Color.accentColor)
 //                        Button(action: {
 //                            withAnimation(.easeIn) {
 //                                store.showingList = true
@@ -87,6 +87,7 @@ struct FavoriteListScreen: View {
                            }
                        } else {
                                LoadingView()
+                               .onAppear(perform: locationManager.requestLocation)
 //                           if locationManager.isLoading {
 //                               LoadingView()
 //                           } else {
@@ -94,6 +95,7 @@ struct FavoriteListScreen: View {
 //                                   .environmentObject(locationManager)
 //                           }
                        }
+                        
                        
                         ForEach(store.weatherList, id: \.city) { myWeather in
                             NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
@@ -106,11 +108,11 @@ struct FavoriteListScreen: View {
                     
                     
                 }//Vstack
-                } else {
-                    ContentView()
-                        .navigationBarHidden(true)
-                }
-            }//Zstack
+//                } else {
+//                    ContentView()
+//                        .navigationBarHidden(true)
+//                }
+//            }//Zstack
             
 // MARK: - NavigationBar
         .navigationBarItems(trailing: EditButton())
@@ -145,21 +147,28 @@ struct WeatherCell: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 15) {
-                Text(myWeather.city)
-                    .fontWeight(.bold)
-                HStack {
-                    Text("\(myWeather.date0.formatAsString2())")
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(myWeather.city)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    
+                    Text(" ")
+                        .font(.system(size: 12))
                 }
-                HStack {
-                    Text("\(myWeather.description0.capitalized)")
-                }
+                
+                Text("\(myWeather.date0.formatAsString2())")
             }//Vstack
             Spacer()
-            URLImage(url: URL.weatherIcon(icon: myWeather.icon0))
-                .frame(width: 50, height: 50)
-
-            Text("\(Int(myWeather.getTemperatureUnit(unit: store.selectedUnit))) \(String(store.selectedUnit.displayText.prefix(1)))")
-//            Text(String(format: "%.0f°", myWeather.temperature0))
+            VStack {
+                HStack {
+                    URLImage(url: URL.weatherIcon(icon: myWeather.icon0))
+                        .frame(width: 40, height: 40)
+                    
+                    Text(String(format: "%.0f°", myWeather.temperature0))
+                        .font(.system(size: 30))
+                }
+                Text("\(myWeather.description0.capitalized)")
+            }
         }//Hstack
         .padding()
         .background(RoundedRectangle(cornerRadius: 15).stroke())
