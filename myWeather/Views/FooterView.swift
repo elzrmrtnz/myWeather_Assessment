@@ -12,6 +12,7 @@ struct FooterView: View {
     @State var showList = false
     @EnvironmentObject var store: Store
     @State var showSettings = false
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     
     var body: some View {
@@ -22,8 +23,8 @@ struct FooterView: View {
                 }
             } label: {
                 Image(systemName: "gearshape.fill")
-                    .font(.title)
-                    .foregroundColor(Color("iconColor"))
+                    .font(.title2)
+                    .foregroundColor(Color.accentColor)
             }
             .sheet(isPresented: $showSettings) {
                 SettingsScreen().environmentObject(store)
@@ -32,13 +33,11 @@ struct FooterView: View {
             Spacer()
             
             Button {
-                withAnimation(.easeIn) {
-                    store.showingList = false
-                }
+                self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Image(systemName: "list.bullet")
-                    .font(.title)
-                    .foregroundColor(Color("iconColor"))
+                    .font(.title2)
+                    .foregroundColor(Color.accentColor)
             }
         }
     }

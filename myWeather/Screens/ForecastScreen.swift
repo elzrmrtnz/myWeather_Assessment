@@ -27,12 +27,18 @@ struct ForecastScreen: View {
                     FailedView()
                 }
                 Spacer()
+                
+                FooterView()
+                    .padding(.top)
+                    .padding(.horizontal)
+                    .background(.ultraThinMaterial)
+                    .edgesIgnoringSafeArea(.bottom)
             }
-            
             .onAppear {
                 self.forecastListVM.getForecastByCity(city: self.city)
             }
         }
+        .navigationBarHidden(true)
     }
 }
 
