@@ -102,7 +102,6 @@ struct FavoriteListScreen: View {
             }//Vstack
             
 // MARK: - NavigationBar
-
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
@@ -119,26 +118,16 @@ struct FavoriteListScreen: View {
                         
                         Divider()
                         Button {
-                            //Convert to Celsius
+                            print("Convert to Celsius")
                         } label: {
-                            Label {
-                                Text("Celsius")
-                            } icon: {
-                                Text("°C")
-                                    .fontWeight(.bold)
-                            }
+                            Text("Celsius")
                             
                         }
                         
                         Button {
-                            //Convert to Fahrenheit
+                            print("Convert to Fahrenheit")
                         } label: {
-                            Label {
-                                Text("Fahrenheit")
-                            } icon: {
-                                Text("°F")
-                                    .fontWeight(.bold)
-                            }
+                            Text("Fahrenheit")
                         }
                         
                         Divider()
@@ -173,7 +162,6 @@ struct FavoriteListScreen_Previews: PreviewProvider {
 // Update for iOS 15
 // MARK: - UIApplication extension for resgning keyboard on pressing the cancel buttion of the search bar
 extension UIApplication {
-
     func endEditing(_ force: Bool) {
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene

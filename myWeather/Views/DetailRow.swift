@@ -18,7 +18,7 @@ struct DetailRow: View {
                 .font(.title3)
                 .frame(width: 15, height: 15)
                 .padding()
-                .background(Color.gray)
+                .background(.ultraThinMaterial)
                 .cornerRadius(10)
 
             

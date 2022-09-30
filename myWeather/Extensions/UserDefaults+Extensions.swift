@@ -17,3 +17,26 @@ extension UserDefaults {
     }
 
 }
+
+enum TemperatureUnit: String, CaseIterable, Identifiable {
+    
+    var id: String {
+        return rawValue
+    }
+
+    case celsius
+    case fahrenheit
+}
+
+extension TemperatureUnit {
+
+    var displayText: String {
+        switch self {
+            case .celsius:
+                return "Celsius"
+            case .fahrenheit:
+                return "Fahrenheit"
+        }
+    }
+
+}
