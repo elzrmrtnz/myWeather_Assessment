@@ -12,33 +12,29 @@ struct FooterView: View {
     @State var showList = false
     @EnvironmentObject var store: Store
     @State var showSettings = false
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     
     var body: some View {
         HStack {
             Button  {
                 withAnimation(.easeIn) {
-                    self.showSettings.toggle()
+                    print("Info Pressed")
                 }
             } label: {
-                Image(systemName: "gearshape.fill")
-                    .font(.title)
-                    .foregroundColor(Color("iconColor"))
+                Image(systemName: "info.circle")
+                    .font(.title2)
+                    .foregroundColor(Color.accentColor)
             }
-            .sheet(isPresented: $showSettings) {
-                SettingsScreen().environmentObject(store)
-                }
             
             Spacer()
             
             Button {
-                withAnimation(.easeIn) {
-                    store.showingList = false
-                }
+                self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Image(systemName: "list.bullet")
-                    .font(.title)
-                    .foregroundColor(Color("iconColor"))
+                    .font(.title2)
+                    .foregroundColor(Color.accentColor)
             }
         }
     }

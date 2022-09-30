@@ -14,9 +14,11 @@ enum NetworkError: Error {
     case decodingError
 }
 
-class WebService {
+class WebService: NSObject {
     
     private let locationManager = CLLocationManager()
+//    private var completionHandler: ((MyWeather?, LocationAuthError?) -> Void)?
+    private var dataTask: URLSessionDataTask?
 
 // MARK: - Get Forecast By Location
 
@@ -152,3 +154,6 @@ class WebService {
 //    ) {
 //      print("Something went wrong: \(error.localizedDescription)")
 //    }
+//
+//  }
+//      public struct LocationAuthError: Error {}

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WeatherRow: View {
+struct DetailRow: View {
     var logo: String
     var name: String
     var value: String
@@ -18,7 +18,7 @@ struct WeatherRow: View {
                 .font(.title3)
                 .frame(width: 15, height: 15)
                 .padding()
-                .background(Color.gray)
+                .background(.ultraThinMaterial)
                 .cornerRadius(10)
 
             
@@ -36,6 +36,6 @@ struct WeatherRow: View {
 
 struct WeatherRow_Previews: PreviewProvider {
     static var previews: some View {
-        WeatherRow(logo: "thermometer", name: "Feels like", value: "8°")
+        DetailRow(logo: "thermometer", name: "Feels like", value: "8°")
     }
 }

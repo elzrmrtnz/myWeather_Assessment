@@ -25,6 +25,8 @@ class ForecastListViewModel: ObservableObject {
     init(myWeather: MyWeather? = nil) {
         self.myWeather = myWeather
     }
+    
+    let id = UUID()
 
     func getForecastByCity(city: String) {
         
@@ -43,4 +45,5 @@ class ForecastListViewModel: ObservableObject {
             }
         }
     }
+    
 }

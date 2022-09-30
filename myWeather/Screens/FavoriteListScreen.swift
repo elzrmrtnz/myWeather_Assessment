@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CoreLocationUI
 
 enum Sheets: Identifiable {
     
@@ -21,77 +21,136 @@ enum Sheets: Identifiable {
 struct FavoriteListScreen: View {
     
     @EnvironmentObject var store: Store
+    @State var isEditing = false
+    //    @EnvironmentObject var locationManager: LocationViewModel
     @State var showAdd = false
+    @State private var searchText = ""
+    @State private var showCancelButton: Bool = false
     @StateObject private var addCityVM = AddCityViewModel()
+    @StateObject var locationManager = LocationViewModel()
+    var webService = WebService()
+    @State var myWeather: MyWeather!
     
     var body: some View {
         NavigationView {
-            ZStack {
-                if store.showingList == false {
-//                Image("background-image")
-//                    .resizable()
-//                    .edgesIgnoringSafeArea(.all)
-                VStack {
-                    HStack(spacing: 10) {
-                        Button(action: {
-                            withAnimation(.easeIn) {
-                                store.showingList = true
-                            }
-                        }, label: {
-                            Image(systemName: "location.circle.fill")
-                                .foregroundColor(Color("iconColor"))
-                                .font(.title)
-                        })
+            VStack {
+                HStack {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
                         
-                        TextField("Search for a city", text: $addCityVM.city, onEditingChanged: {
-                            _ in }, onCommit: {
-                                addCityVM.add { myWeather in
-                                    store.addWeather(myWeather)
-                            }
+                        TextField("Search for a city",
+                                  text: $addCityVM.city,
+                                  onEditingChanged: { isEditing in self.showCancelButton = true },
+                                  onCommit: {addCityVM.add { myWeather in store.addWeather(myWeather)}
                         })
                         .foregroundColor(.accentColor)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }
-                    .padding(.horizontal)
-                    
-                   List {
-                       
-                       
-                       
-                        ForEach(store.weatherList, id: \.city) { myWeather in
-                            NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
-                                WeatherCell(myWeather: myWeather)
-                            }
+                        
+                        Button(action: {
+                            self.searchText = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
                         }
-                        .onDelete(perform: { indexSet in
-                            store.weatherList.remove(atOffsets: indexSet)})
-                    }//ScrollView
+                    }
+                    .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                    .foregroundColor(.secondary)
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(10.0)
                     
-                    
-                }//Vstack
-                } else {
-                    ContentView()
-                        .navigationBarHidden(true)
+                    if showCancelButton  {
+                        Button("Cancel") {
+                            UIApplication.shared.endEditing(true) // this must be placed before the other commands here
+                            self.searchText = ""
+                            self.showCancelButton = false
+                        }
+                        .foregroundColor(Color(.systemBlue))
+                    }
                 }
-            }//Zstack
+                .padding(.horizontal)
+                .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
+                
+                List {
+                    
+                    if let location = locationManager.location {
+                        if let myWeather = myWeather {
+                            NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
+                                CurrentWeatherCell(myWeather: myWeather)
+                            }
+                        } else {
+                            LoadingView()
+                                .task {
+                                    do {
+                                        myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
+                                    } catch {
+                                        print("Error getting weather: \(error)")
+                                    }
+                                }
+                        }
+                    } else {
+                        LoadingView()
+                            .onAppear(perform: locationManager.requestLocation)
+                    }
+                    
+                    ForEach(store.weatherList, id: \.city) { myWeather in
+                        NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
+                            WeatherCell(myWeather: myWeather)
+                        }
+                    }
+                    .onDelete(perform: { indexSet in
+                        store.weatherList.remove(atOffsets: indexSet)})
+                }//ScrollView
+                .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
+            }//Vstack
             
 // MARK: - NavigationBar
-//        .navigationBarItems(trailing: EditButton())
-//        leading: Button(action: {
-//            withAnimation(.easeIn) {
-//                store.showingList = false
-//            }
-//        }, label: {
-//            Image(systemName: "location.circle.fill")
-//                .foregroundColor(Color("iconColor"))
-//                .font(.title)
-//        }),trailing: EditButton())
-        .navigationBarTitle("myWeather")
-        .foregroundColor(Color.accentColor)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button {
+                            self.isEditing.toggle()
+                        } label: {
+                            Label {
+                                Text(isEditing ? "Done" : "Edit List")
+                            } icon: {
+                                Image(systemName: "pencil")
+                            }
+                            
+                        }
+                        
+                        Divider()
+                        Button {
+                            print("Convert to Celsius")
+                        } label: {
+                            Text("Celsius")
+                            
+                        }
+                        
+                        Button {
+                            print("Convert to Fahrenheit")
+                        } label: {
+                            Text("Fahrenheit")
+                        }
+                        
+                        Divider()
+                        Button {
+                            print("Report an Issue")
+                        } label: {
+                            Label {
+                                Text("Report an Issue")
+                            } icon: {
+                                Image(systemName: "exclamationmark.bubble")
+                            }
+                        }
+                        
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+            .navigationBarTitle("myWeather")
+            .foregroundColor(Color.accentColor)
         }//NvigationView
     }
 }
-
 
 struct FavoriteListScreen_Previews: PreviewProvider {
     static var previews: some View {
@@ -100,35 +159,28 @@ struct FavoriteListScreen_Previews: PreviewProvider {
     }
 }
 
-struct WeatherCell: View {
-    
-    @EnvironmentObject var store: Store
-    let myWeather: ForecastViewModel
-    
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 15) {
-                Text(myWeather.city)
-                    .fontWeight(.bold)
-                HStack {
-                    Text("\(myWeather.date0.formatAsString())")
-                }
-                HStack {
-                    Text("\(myWeather.description0)")
-                }
-            }//Vstack
-            Spacer()
-            URLImage(url: URL.weatherIcon(icon: myWeather.icon0))
-                .frame(width: 50, height: 50)
+// Update for iOS 15
+// MARK: - UIApplication extension for resgning keyboard on pressing the cancel buttion of the search bar
+extension UIApplication {
+    func endEditing(_ force: Bool) {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.endEditing(force)
+    }
+}
 
-            Text("\(Int(myWeather.getTemperatureUnit(unit: store.selectedUnit))) \(String(store.selectedUnit.displayText.prefix(1)))")
-//            Text(String(format: "%.0f°", myWeather.temperature0))
-        }//Hstack
-        .padding()
-        .background(RoundedRectangle(cornerRadius: 15).stroke())
-//        .background(Color(#colorLiteral(red: 0.9133135676, green: 0.9335765243, blue: 0.98070997, alpha: 1)))
-//        .clipShape(RoundedRectangle(cornerRadius: 10, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
+struct ResignKeyboardOnDragGesture: ViewModifier {
+    var gesture = DragGesture().onChanged{_ in
+        UIApplication.shared.endEditing(true)
+    }
+    func body(content: Content) -> some View {
+        content.gesture(gesture)
+    }
+}
 
-
+extension View {
+    func resignKeyboardOnDragGesture() -> some View {
+        return modifier(ResignKeyboardOnDragGesture())
     }
 }
