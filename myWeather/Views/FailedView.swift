@@ -10,7 +10,7 @@ import SwiftUI
 
 struct FailedView: View {
     var body: some View {
-        Image("oops")
+        Image(systemName: "questionmark")
     }
 }
 

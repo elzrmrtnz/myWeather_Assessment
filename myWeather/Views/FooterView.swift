@@ -19,16 +19,13 @@ struct FooterView: View {
         HStack {
             Button  {
                 withAnimation(.easeIn) {
-                    self.showSettings.toggle()
+                    print("Info Pressed")
                 }
             } label: {
-                Image(systemName: "gearshape.fill")
+                Image(systemName: "info.circle")
                     .font(.title2)
                     .foregroundColor(Color.accentColor)
             }
-            .sheet(isPresented: $showSettings) {
-                SettingsScreen().environmentObject(store)
-                }
             
             Spacer()
             

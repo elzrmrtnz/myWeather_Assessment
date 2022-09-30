@@ -45,6 +45,6 @@ struct CustomStackView<Title: View, Content: View>: View {
 
 struct WeatherDay_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        FavoriteListScreen()
     }
 }

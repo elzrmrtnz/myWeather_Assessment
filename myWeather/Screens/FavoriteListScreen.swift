@@ -21,8 +21,11 @@ enum Sheets: Identifiable {
 struct FavoriteListScreen: View {
     
     @EnvironmentObject var store: Store
-//    @EnvironmentObject var locationManager: LocationViewModel
+    @State var isEditing = false
+    //    @EnvironmentObject var locationManager: LocationViewModel
     @State var showAdd = false
+    @State private var searchText = ""
+    @State private var showCancelButton: Bool = false
     @StateObject private var addCityVM = AddCityViewModel()
     @StateObject var locationManager = LocationViewModel()
     var webService = WebService()
@@ -30,55 +33,132 @@ struct FavoriteListScreen: View {
     
     var body: some View {
         NavigationView {
-                VStack {
-                    HStack(spacing: 10) {
-                        TextField("Search for a city", text: $addCityVM.city, onEditingChanged: {
-                            _ in }, onCommit: {
-                                addCityVM.add { myWeather in
-                                    store.addWeather(myWeather)
-                            }
+            VStack {
+                HStack {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                        
+                        TextField("Search for a city",
+                                  text: $addCityVM.city,
+                                  onEditingChanged: { isEditing in self.showCancelButton = true },
+                                  onCommit: {addCityVM.add { myWeather in store.addWeather(myWeather)}
                         })
                         .foregroundColor(.accentColor)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }
-                    .padding(.horizontal)
-                    
-                   List {
-                       
-                       if let location = locationManager.location {
-                           if let myWeather = myWeather {
-                               NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
-                                   CurrentWeatherCell(myWeather: myWeather)
-                               }
-                           } else {
-                               LoadingView()
-                                   .task {
-                                       do {
-                                           myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
-                                       } catch {
-                                           print("Error getting weather: \(error)")
-                                       }
-                                   }
-                           }
-                       } else {
-                           LoadingView()
-                               .onAppear(perform: locationManager.requestLocation)
-                       }
-                    
-                        ForEach(store.weatherList, id: \.city) { myWeather in
-                            NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
-                                WeatherCell(myWeather: myWeather)
-                            }
+                        
+                        Button(action: {
+                            self.searchText = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
                         }
-                        .onDelete(perform: { indexSet in
-                            store.weatherList.remove(atOffsets: indexSet)})
-                    }//ScrollView
-                }//Vstack
+                    }
+                    .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                    .foregroundColor(.secondary)
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(10.0)
+                    
+                    if showCancelButton  {
+                        Button("Cancel") {
+                            UIApplication.shared.endEditing(true) // this must be placed before the other commands here
+                            self.searchText = ""
+                            self.showCancelButton = false
+                        }
+                        .foregroundColor(Color(.systemBlue))
+                    }
+                }
+                .padding(.horizontal)
+                .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
+                
+                List {
+                    
+                    if let location = locationManager.location {
+                        if let myWeather = myWeather {
+                            NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
+                                CurrentWeatherCell(myWeather: myWeather)
+                            }
+                        } else {
+                            LoadingView()
+                                .task {
+                                    do {
+                                        myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
+                                    } catch {
+                                        print("Error getting weather: \(error)")
+                                    }
+                                }
+                        }
+                    } else {
+                        LoadingView()
+                            .onAppear(perform: locationManager.requestLocation)
+                    }
+                    
+                    ForEach(store.weatherList, id: \.city) { myWeather in
+                        NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
+                            WeatherCell(myWeather: myWeather)
+                        }
+                    }
+                    .onDelete(perform: { indexSet in
+                        store.weatherList.remove(atOffsets: indexSet)})
+                }//ScrollView
+                .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
+            }//Vstack
             
 // MARK: - NavigationBar
-        .navigationBarItems(trailing: EditButton())
-        .navigationBarTitle("myWeather")
-        .foregroundColor(Color.accentColor)
+
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button {
+                            self.isEditing.toggle()
+                        } label: {
+                            Label {
+                                Text(isEditing ? "Done" : "Edit List")
+                            } icon: {
+                                Image(systemName: "pencil")
+                            }
+                            
+                        }
+                        
+                        Divider()
+                        Button {
+                            //Convert to Celsius
+                        } label: {
+                            Label {
+                                Text("Celsius")
+                            } icon: {
+                                Text("°C")
+                                    .fontWeight(.bold)
+                            }
+                            
+                        }
+                        
+                        Button {
+                            //Convert to Fahrenheit
+                        } label: {
+                            Label {
+                                Text("Fahrenheit")
+                            } icon: {
+                                Text("°F")
+                                    .fontWeight(.bold)
+                            }
+                        }
+                        
+                        Divider()
+                        Button {
+                            print("Report an Issue")
+                        } label: {
+                            Label {
+                                Text("Report an Issue")
+                            } icon: {
+                                Image(systemName: "exclamationmark.bubble")
+                            }
+                        }
+                        
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+            .navigationBarTitle("myWeather")
+            .foregroundColor(Color.accentColor)
         }//NvigationView
     }
 }
@@ -90,4 +170,29 @@ struct FavoriteListScreen_Previews: PreviewProvider {
     }
 }
 
+// Update for iOS 15
+// MARK: - UIApplication extension for resgning keyboard on pressing the cancel buttion of the search bar
+extension UIApplication {
 
+    func endEditing(_ force: Bool) {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.endEditing(force)
+    }
+}
+
+struct ResignKeyboardOnDragGesture: ViewModifier {
+    var gesture = DragGesture().onChanged{_ in
+        UIApplication.shared.endEditing(true)
+    }
+    func body(content: Content) -> some View {
+        content.gesture(gesture)
+    }
+}
+
+extension View {
+    func resignKeyboardOnDragGesture() -> some View {
+        return modifier(ResignKeyboardOnDragGesture())
+    }
+}
