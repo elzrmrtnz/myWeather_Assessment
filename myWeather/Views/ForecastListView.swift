@@ -122,8 +122,8 @@ struct ForecastListView: View {
     }
 }
 
-struct ForecastListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ForecastListView(myWeather: previewWeather)
-    }
-}
+//struct ForecastListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ForecastListView(myWeather: ForecastListViewModel)
+//    }
+//}

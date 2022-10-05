@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CurrentWeatherCell: View {
     
+    @ObservedObject var forecastListVM = ForecastListViewModel()
     let myWeather: MyWeather
     
     var body: some View {
@@ -28,8 +29,10 @@ struct CurrentWeatherCell: View {
             Spacer()
             VStack {
                 HStack {
-                URLImage(url: URL.weatherIcon(icon: myWeather.icon0))
-                    .frame(width: 40, height: 40)
+                    forecastListVM.getWeatherIconFor(icon: forecastListVM.dailyWeatherIcons[0])
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
 
                 Text(String(format: "%.0f°", myWeather.temperature0))
                         .font(.system(size: 30))
@@ -51,13 +54,13 @@ struct CurrentWeatherList_Previews: PreviewProvider {
 struct WeatherCell: View {
     
     @EnvironmentObject var store: Store
-    let myWeather: ForecastViewModel
+    let myWeather: ForecastListViewModel
     
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 15) {
                 VStack(alignment: .leading, spacing: 0) {
-                    Text(myWeather.city)
+                    Text(myWeather.currentCity)
                         .font(.title3)
                         .fontWeight(.bold)
                     
@@ -65,18 +68,21 @@ struct WeatherCell: View {
                         .font(.system(size: 12))
                 }
                 
-                Text("\(myWeather.date0.formatAsString2())")
+                Text("\(myWeather.date)")
             }//Vstack
             Spacer()
             VStack {
                 HStack {
-                    URLImage(url: URL.weatherIcon(icon: myWeather.icon0))
-                        .frame(width: 40, height: 40)
+                    myWeather.getWeatherIconFor(icon: myWeather.dailyWeatherIcons[0])
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
                     
-                    Text(String(format: "%.0f°", myWeather.temperature0))
-                        .font(.system(size: 30))
+                    Text("\(myWeather.getTempByUnit(unit: store.selectedUnit)[0])")
+//                        .fontWeight(.bold)
+//                        .font(.largeTitle)
                 }
-                Text("\(myWeather.description0.capitalized)")
+                Text(myWeather.description!)
             }
         }//Hstack
         .padding()

@@ -12,13 +12,13 @@ class Store: ObservableObject {
     @Published var showingList: Bool = false
 
     @Published var selectedUnit: TemperatureUnit = .celsius
-    @Published var weatherList: [ForecastViewModel] = [ForecastViewModel]()
+    @Published var weatherList: [ForecastListViewModel] = [ForecastListViewModel]()
     
     init() {
         selectedUnit = UserDefaults.standard.unit
     }
     
-    func addWeather(_ myWeather: ForecastViewModel) {
+    func addWeather(_ myWeather: ForecastListViewModel) {
         weatherList.append(myWeather)
     }
     

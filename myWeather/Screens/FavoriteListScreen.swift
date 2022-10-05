@@ -22,7 +22,6 @@ struct FavoriteListScreen: View {
     
     @EnvironmentObject var store: Store
     @State var isEditing = false
-    //    @EnvironmentObject var locationManager: LocationViewModel
     @State var showAdd = false
     @State private var searchText = ""
     @State private var showCancelButton: Bool = false
@@ -30,6 +29,7 @@ struct FavoriteListScreen: View {
     @StateObject var locationManager = LocationViewModel()
     var webService = WebService()
     @State var myWeather: MyWeather!
+    @AppStorage("unit") private var selectedUnit: TemperatureUnit = .celsius
     
     var body: some View {
         NavigationView {
@@ -91,7 +91,7 @@ struct FavoriteListScreen: View {
                     }
                     
                     ForEach(store.weatherList, id: \.city) { myWeather in
-                        NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
+                        NavigationLink(destination: ForecastScreen(city: myWeather.currentCity)) {
                             WeatherCell(myWeather: myWeather)
                         }
                     }
@@ -118,14 +118,14 @@ struct FavoriteListScreen: View {
                         
                         Divider()
                         Button {
-                            print("Convert to Celsius")
+//                            selectedUnit = .celsius
                         } label: {
                             Text("Celsius")
                             
                         }
                         
                         Button {
-                            print("Convert to Fahrenheit")
+//                            selectedUnit = .fahrenheit
                         } label: {
                             Text("Fahrenheit")
                         }
