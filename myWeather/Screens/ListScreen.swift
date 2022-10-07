@@ -18,30 +18,32 @@ enum Sheets: Identifiable {
     case settings
 }
 
-struct FavoriteListScreen: View {
+struct ListScreen: View {
     
     @EnvironmentObject var store: Store
     @State var isEditing = false
-    //    @EnvironmentObject var locationManager: LocationViewModel
     @State var showAdd = false
     @State private var searchText = ""
     @State private var showCancelButton: Bool = false
     @StateObject private var addCityVM = AddCityViewModel()
-    @StateObject var locationManager = LocationViewModel()
+    @StateObject var locationManager = LocationManager()
     var webService = WebService()
-    @State var myWeather: MyWeather!
+    @State var myWeather: ForecastViewModel!
+    @AppStorage("unit") private var selectedUnit: TemperatureUnit = .celsius
     
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
+                    // MARK: - Search Bar
+
                     HStack {
                         Image(systemName: "magnifyingglass")
                         
                         TextField("Search for a city",
                                   text: $addCityVM.city,
                                   onEditingChanged: { isEditing in self.showCancelButton = true },
-                                  onCommit: {addCityVM.add { myWeather in store.addWeather(myWeather)}
+                                  onCommit: {addCityVM.getCity { myWeather in store.addWeather(myWeather)}
                         })
                         .foregroundColor(.accentColor)
                         
@@ -69,10 +71,11 @@ struct FavoriteListScreen: View {
                 .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
                 
                 List {
-                    
+                    // MARK: - Current Location
+
                     if let location = locationManager.location {
                         if let myWeather = myWeather {
-                            NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
+                            NavigationLink(destination: DetailScreen(city: myWeather.city)) {
                                 CurrentWeatherCell(myWeather: myWeather)
                             }
                         } else {
@@ -89,9 +92,10 @@ struct FavoriteListScreen: View {
                         LoadingView()
                             .onAppear(perform: locationManager.requestLocation)
                     }
-                    
+                    // MARK: - Added Cities
+
                     ForEach(store.weatherList, id: \.city) { myWeather in
-                        NavigationLink(destination: ForecastScreen(city: myWeather.city)) {
+                        NavigationLink(destination: DetailScreen(city: myWeather.city )) {
                             WeatherCell(myWeather: myWeather)
                         }
                     }
@@ -113,24 +117,19 @@ struct FavoriteListScreen: View {
                             } icon: {
                                 Image(systemName: "pencil")
                             }
-                            
                         }
                         
                         Divider()
-                        Button {
-                            print("Convert to Celsius")
-                        } label: {
-                            Text("Celsius")
-                            
-                        }
                         
-                        Button {
-                            print("Convert to Fahrenheit")
-                        } label: {
-                            Text("Fahrenheit")
+                        Picker(selection: $selectedUnit, label: Text("")) {
+                            ForEach(TemperatureUnit.allCases, id: \.self) {
+                                Text("\($0.displayText)" as String)
+                            }
                         }
+                        .pickerStyle(.automatic)
                         
                         Divider()
+                        
                         Button {
                             print("Report an Issue")
                         } label: {
@@ -140,9 +139,12 @@ struct FavoriteListScreen: View {
                                 Image(systemName: "exclamationmark.bubble")
                             }
                         }
-                        
                     } label: {
                         Image(systemName: "ellipsis.circle")
+                    }
+                    //Update value when user select a unit
+                    .onChange(of: selectedUnit) { newValue in
+                        store.selectedUnit = selectedUnit
                     }
                 }
             }
@@ -154,7 +156,7 @@ struct FavoriteListScreen: View {
 
 struct FavoriteListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        FavoriteListScreen()
+        ListScreen()
             .environmentObject(Store())
     }
 }

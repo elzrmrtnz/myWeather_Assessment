@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct ForecastScreen: View {
+struct DetailScreen: View {
     
     let city: String
-    @ObservedObject var forecastListVM = ForecastListViewModel()
+    @ObservedObject var detailVM = DetailViewModel()
     
     var body: some View {
         ZStack {
@@ -19,11 +19,11 @@ struct ForecastScreen: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 
-                if forecastListVM.loadingState == .loading {
+                if detailVM.loadingState == .loading {
                     LoadingView()
-                } else if forecastListVM.loadingState == .success {
-                    ForecastListView(myWeather: self.forecastListVM.myWeather!)
-                } else if forecastListVM.loadingState == .failed {
+                } else if detailVM.loadingState == .success {
+                    ForecastListView(myWeather: detailVM)
+                } else if detailVM.loadingState == .failed {
                     FailedView()
                 }
                 Spacer()
@@ -35,7 +35,7 @@ struct ForecastScreen: View {
                     .edgesIgnoringSafeArea(.bottom)
             }
             .onAppear {
-                self.forecastListVM.getForecastByCity(city: self.city)
+                self.detailVM.getForecastByCity(city: self.city)
             }
         }
         .navigationBarHidden(true)
