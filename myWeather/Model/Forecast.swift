@@ -14,6 +14,17 @@ struct Forecast: Codable {
 
 struct City: Codable {
     let name: String
+    let sunrise: Date
+    let sunset: Date
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let sunriseTimeInterval = try container.decode(Int32.self, forKey: .sunrise)
+        let sunsetTimeInterval = try container.decode(Int32.self, forKey: .sunset)
+        sunrise = Date(timeIntervalSince1970: TimeInterval(sunriseTimeInterval))
+        sunset = Date(timeIntervalSince1970: TimeInterval(sunsetTimeInterval))
+        name = try container.decode(String.self, forKey: .name)
+    }
 }
 
 struct DateList: Codable {
@@ -44,9 +55,6 @@ struct Main: Codable {
         case min = "temp_min"
         case hum = "humidity"
     }
-
-
-
 }
 
 struct Weather: Codable {
@@ -61,6 +69,8 @@ struct Wind: Codable {
 
 struct MyWeather: Codable {
     let city: String
+    let sunrise: Date
+    let sunset: Date
     let temperature0: Double
     let tempMax0: Double
     let tempMin0: Double
@@ -101,6 +111,8 @@ struct MyWeather: Codable {
 
     init(forecast: Forecast) {
         city = forecast.city.name
+        sunrise = forecast.city.sunrise
+        sunset = forecast.city.sunset
         temperature0 = forecast.list[0].main.temp
         tempMax0 = forecast.list[0].main.max
         tempMin0 = forecast.list[0].main.min

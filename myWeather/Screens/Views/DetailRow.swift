@@ -18,10 +18,9 @@ struct DetailRow: View {
                 .font(.title3)
                 .frame(width: 15, height: 15)
                 .padding()
-                .background(.ultraThinMaterial)
+                .background(.thickMaterial)
                 .cornerRadius(10)
 
-            
             VStack(alignment: .center, spacing: 0) {
                 Text(name)
                     .font(.caption)
