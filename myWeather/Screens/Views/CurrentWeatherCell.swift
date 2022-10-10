@@ -14,30 +14,33 @@ struct CurrentWeatherCell: View {
     
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 15) {
+            VStack(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 0) {
                 Text("My Location")
                     .font(.title3)
                     .fontWeight(.bold)
                 
-                Text(myWeather.city)
-                    .font(.system(size: 12))
+                Text(myWeather.cityName)
+                    .font(.system(size: 13))
                 }
-                Text("\(myWeather.date0.formatAsString2())")
+                Spacer()
+                Text("\(myWeather.date.formatAsString2())")
+                    .font(.system(size: 15))
             }//Vstack
             Spacer()
             VStack {
                 HStack {
-                    Image(myWeather.getWeatherIconFor(icon: myWeather.dailyWeatherIcons[0]))
+                    Image(myWeather.getWeatherIconFor(icon: myWeather.icon))
                         .resizable()
                         .scaledToFit()
                         .frame(width: 30, height: 30)
                     
-                    Text("\(myWeather.getTempByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))")
-//                        .fontWeight(.bold)
-//                        .font(.largeTitle)
+                    Text("\(myWeather.getTempByUnit(unit: store.selectedUnit))°\(String(store.selectedUnit.displayText.prefix(1)))")
+                        .font(.title3)
                 }
-                Text(myWeather.description0.capitalized)
+                Spacer()
+                Text(myWeather.description.capitalized)
+                    .font(.system(size: 15))
             }
         }//Hstack
         .padding()
@@ -45,11 +48,11 @@ struct CurrentWeatherCell: View {
     }
 }
 
-//struct CurrentWeatherList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CurrentWeatherCell(myWeather: previewWeather)
-//    }
-//}
+struct CurrentWeatherList_Previews: PreviewProvider {
+    static var previews: some View {
+        ListScreen()
+    }
+}
 
 struct WeatherCell: View {
     
@@ -58,30 +61,33 @@ struct WeatherCell: View {
     
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 15) {
+            VStack(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 0) {
-                    Text(myWeather.city)
+                    Text(myWeather.cityName)
                         .font(.title3)
                         .fontWeight(.bold)
                     
                     Text(" ")
-                        .font(.system(size: 12))
+                        .font(.system(size: 13))
                 }
-                Text("\(myWeather.date0.formatAsString2())")
+                Spacer()
+                Text("\(myWeather.date.formatAsString2())")
+                    .font(.system(size: 15))
             }//Vstack
             Spacer()
             VStack {
                 HStack {
-                    Image(myWeather.getWeatherIconFor(icon: myWeather.dailyWeatherIcons[0]))
+                    Image(myWeather.getWeatherIconFor(icon: myWeather.icon))
                         .resizable()
                         .scaledToFit()
                         .frame(width: 30, height: 30)
                     
-                    Text("\(myWeather.getTempByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))")
-//                        .fontWeight(.bold)
-//                        .font(.largeTitle)
+                    Text("\(myWeather.getTempByUnit(unit: store.selectedUnit))°\(String(store.selectedUnit.displayText.prefix(1)))")
+                        .font(.title3)
                 }
-                Text(myWeather.description0.capitalized)
+                Spacer()
+                Text(myWeather.description.capitalized)
+                    .font(.system(size: 15))
             }
         }//Hstack
         .padding()

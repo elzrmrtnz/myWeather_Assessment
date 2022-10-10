@@ -26,7 +26,7 @@ struct DetailScreen: View {
                 } else if detailVM.loadingState == .failed {
                     FailedView()
                 }
-                Spacer()
+                
                 
                 FooterView()
                     .padding(.top)
@@ -42,4 +42,9 @@ struct DetailScreen: View {
     }
 }
 
-
+struct DetailScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        ListScreen()
+            .environmentObject(Store())
+    }
+}

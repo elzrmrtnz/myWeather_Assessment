@@ -35,57 +35,32 @@ struct ForecastViewModel {
 
     let id = UUID()
 
-    var city: String {
+    var cityName: String {
         return myWeather.city
     }
 
-    var temperature0: Double {
-        return myWeather.temperature0
-    }
-
-    var icon0: String {
+    var icon: String {
         return myWeather.icon0
     }
 
-    var description0: String {
+    var description: String {
         return myWeather.description0
     }
 
-    var date0: Date {
+    var date: Date {
         return myWeather.date0
     }
     
-    func getTempByUnit(unit: TemperatureUnit) -> [String] {
+    func getTempByUnit(unit: TemperatureUnit) -> String {
         switch unit {
         case .celsius:
-            return [ roundedOf(myWeather.temperature0),
-                     roundedOf(myWeather.temperature1),
-                     roundedOf(myWeather.temperature2),
-                     roundedOf(myWeather.temperature3),
-                     roundedOf(myWeather.temperature4)
-            ]
+            return roundedOf(myWeather.temperature0)
+                     
         case .fahrenheit:
-            return [ roundedOf(1.8 * (myWeather.temperature0) + 32),
-                     roundedOf(1.8 * (myWeather.temperature1) + 32),
-                     roundedOf(1.8 * (myWeather.temperature2) + 32),
-                     roundedOf(1.8 * (myWeather.temperature3) + 32),
-                     roundedOf(1.8 * (myWeather.temperature4) + 32)
-            ]
+            return roundedOf(1.8 * (myWeather.temperature0) + 32)
         }
     }
     
-    //MARK: - WEATHER ICON
-    
-    var dailyWeatherIcons: [String] {
-        return [ myWeather.icon0,
-                 myWeather.icon1,
-                 myWeather.icon2,
-                 myWeather.icon3,
-                 myWeather.icon4
-        ]
-    }
-    
-    //MARK: - FUNCTIONS
     func roundedOf(_ roundOf: Double) -> String {
         return String(format: "%.0f", roundOf)
     }

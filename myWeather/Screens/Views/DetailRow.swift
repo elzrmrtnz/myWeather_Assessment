@@ -21,7 +21,7 @@ struct DetailRow: View {
                 .background(.thickMaterial)
                 .cornerRadius(10)
 
-            VStack(alignment: .center, spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(name)
                     .font(.caption)
                 
