@@ -26,6 +26,7 @@ struct ListScreen: View {
     @StateObject var locationManager = LocationManager()
     @State var myWeather: ForecastViewModel!
     @AppStorage("unit") private var selectedUnit: TemperatureUnit = .celsius
+    @AppStorage("isDarkMode") private var isDark = false
     
     var webService = WebService()
     
@@ -109,9 +110,19 @@ struct ListScreen: View {
                             self.isEditing.toggle()
                         } label: {
                             Label {
-                                Text(isEditing ? "Done" : "Edit List")
+                                Text(isEditing ? "Done" : "Edit")
                             } icon: {
                                 Image(systemName: "pencil")
+                            }
+                        }
+                        //Theme: Dark or LightMode
+                        Button {
+                            isDark.toggle()
+                        } label: {
+                            Label {
+                                Text("Theme: ")
+                            } icon: {
+                                Image(systemName: isDark ? "moon" : "sun.max")
                             }
                         }
                         
@@ -147,7 +158,8 @@ struct ListScreen: View {
             .navigationBarTitle("myWeather")
             .foregroundColor(Color.accentColor)
         }//NvigationView
-    }
+        .preferredColorScheme(isDark ? .dark : .light)
+    } 
 }
 
 struct FavoriteListScreen_Previews: PreviewProvider {

@@ -21,10 +21,9 @@ struct ForecastListView: View {
                     Text(myWeather.cityName)
                         .font(.title)
                         .bold()
-                        .foregroundColor(.white)
+                    
                     Text(myWeather.dailyDates[0].formatAsString())
                         .font(.title2)
-                        .foregroundColor(.white)
 
                     HStack(alignment: .center){
                         Image(myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[0]))
@@ -41,7 +40,7 @@ struct ForecastListView: View {
 
                 }//Vstack
                 .padding()
-                .foregroundColor(.white)
+                .foregroundColor(.accentColor)
 
                 // MARK: - Detail
 

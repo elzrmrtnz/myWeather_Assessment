@@ -84,13 +84,13 @@ struct ForecastViewModel {
            case "04n":
                return String("cloud")
            case "09d":
-               return String("rainy")
+               return String("shower")
            case "09n":
-               return String("rainy")
+               return String("shower")
            case "10d":
-               return String("rainy")
+               return String("rain")
            case "10n":
-               return String("rainy")
+               return String("rain")
            case "11d":
                return String("storm")
            case "11n":

@@ -18,7 +18,7 @@ struct DetailScreen: View {
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
             VStack {
-                
+        
                 if detailVM.loadingState == .loading {
                     LoadingView()
                 } else if detailVM.loadingState == .success {
@@ -26,7 +26,6 @@ struct DetailScreen: View {
                 } else if detailVM.loadingState == .failed {
                     FailedView()
                 }
-                
                 
                 FooterView()
                     .padding(.top)

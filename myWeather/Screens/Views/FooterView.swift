@@ -13,10 +13,8 @@ struct FooterView: View {
     
     var body: some View {
         HStack {
-            Button  {
-                withAnimation(.easeIn) {
-                    print("Info Pressed")
-                }
+            Menu {
+                Text("myWeather Application info")
             } label: {
                 Image(systemName: "info.circle")
                     .font(.title2)

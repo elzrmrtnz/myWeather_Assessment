@@ -126,9 +126,9 @@ class DetailViewModel: ObservableObject {
         case "01n":
             return String("moon")
         case "02d":
-            return String("cloud")
+            return String("fair")
         case "02n":
-            return String("cloud")
+            return String("cloud-moon")
         case "03d":
             return String("cloud")
         case "03n":
@@ -138,13 +138,13 @@ class DetailViewModel: ObservableObject {
         case "04n":
             return String("cloud")
         case "09d":
-            return String("rainy")
+            return String("shower")
         case "09n":
-            return String("rainy")
+            return String("shower")
         case "10d":
-            return String("rainy")
+            return String("rain")
         case "10n":
-            return String("rainy")
+            return String("rain")
         case "11d":
             return String("storm")
         case "11n":
@@ -165,7 +165,7 @@ class DetailViewModel: ObservableObject {
     func getSystemIcon(icon: String) -> String {
         switch icon {
         case "01d":
-            return String("sun")
+            return String("sun.min")
         case "01n":
             return String("moon")
         case "02d":
@@ -201,7 +201,7 @@ class DetailViewModel: ObservableObject {
         case "50n":
             return String("tornado.circle")
         default:
-            return String("sun")
+            return String("sun.min")
         }
     }
 }
