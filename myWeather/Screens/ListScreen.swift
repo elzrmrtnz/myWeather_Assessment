@@ -19,6 +19,8 @@ enum Sheets: Identifiable {
 
 struct ListScreen: View {
     
+    @Environment(\.managedObjectContext) var managedObjContext
+    
     @EnvironmentObject var store: Store
     @State var isEditing = false
     @State private var showCancelButton: Bool = false
@@ -166,6 +168,7 @@ struct FavoriteListScreen_Previews: PreviewProvider {
     static var previews: some View {
         ListScreen()
             .environmentObject(Store())
+
     }
 }
 

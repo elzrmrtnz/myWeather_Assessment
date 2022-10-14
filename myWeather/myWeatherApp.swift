@@ -9,10 +9,14 @@ import SwiftUI
 
 @main
 struct myWeatherApp: App {
+    @StateObject private var dataController = DataController()
+    
     var body: some Scene {
         WindowGroup {
             ListScreen()
                 .environmentObject(Store())
+                .environment(\.managedObjectContext,
+                              dataController.container.viewContext)
         }
     }
 }

@@ -19,14 +19,13 @@ class AddCityViewModel: ObservableObject {
             case .success(let myWeather):
                 DispatchQueue.main.async {
                     completion(ForecastViewModel(myWeather: myWeather!))
-                }
+                }  
             case .failure(let error):
                 print(error)
             }
         }
         
     }
-    
 }
 
 struct ForecastViewModel {
