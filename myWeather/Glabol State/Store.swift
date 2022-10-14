@@ -9,8 +9,6 @@ import Foundation
 
 class Store: ObservableObject {
     
-    @Published var showingList: Bool = false
-
     @Published var selectedUnit: TemperatureUnit = .celsius
     @Published var weatherList: [ForecastViewModel] = [ForecastViewModel]()
     

@@ -18,13 +18,12 @@ struct ForecastListView: View {
                 // MARK: - Title
 
                 VStack(alignment: .center) {
-                    Text(myWeather.currentLocation)
+                    Text(myWeather.cityName)
                         .font(.title)
                         .bold()
-                        .foregroundColor(.white)
-                    Text(myWeather.currentDate.formatAsString())
+                    
+                    Text(myWeather.dailyDates[0].formatAsString())
                         .font(.title2)
-                        .foregroundColor(.white)
 
                     HStack(alignment: .center){
                         Image(myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[0]))
@@ -36,12 +35,12 @@ struct ForecastListView: View {
                             .font(.system(size: 50))
                     }//hstack
 
-                    Text(myWeather.currentCondition!.capitalized)
+                    Text(myWeather.description.capitalized)
                         .font(.title3)
 
                 }//Vstack
                 .padding()
-                .foregroundColor(.white)
+                .foregroundColor(.accentColor)
 
                 // MARK: - Detail
 
@@ -53,27 +52,27 @@ struct ForecastListView: View {
                     }
 
                 } contentView: {
-                    VStack {
-                        HStack {
+                    HStack {
+                        VStack(alignment: .leading) {
                             DetailRow(logo: "sunrise.fill", name: "Sunrise",
                                       value: myWeather.sunrise.formatAsString3())
-                            Spacer()
-                            DetailRow(logo: "sunset.fill", name: "Sunset",
-                                      value: myWeather.sunset.formatAsString3())
-                        }
-
-                        HStack {
+                            
                             DetailRow(logo: "wind", name: "Wind speed",
                                       value: "\(myWeather.currentWind)m/s")
-
-                            Spacer()
+                            
+                        }
+                        Spacer()
+                        VStack(alignment: .leading) {
+                            DetailRow(logo: "sunset.fill", name: "Sunset",
+                                      value: myWeather.sunset.formatAsString3())
+                            
                             DetailRow(logo: "humidity", name: "Humidity",
                                       value: "\(myWeather.currentHumidity)%")
                         }
                     }
                 }
 
-                // MARK: - 5dayForecast
+                // MARK: - 5-Day Forecast
 
                 CustomStackView {
                     Label {
@@ -83,28 +82,22 @@ struct ForecastListView: View {
                     }
 
                 } contentView: {
-                    VStack(alignment: .center, spacing: 10) {
+                    VStack(spacing: 10) {
                         DailyRow(logo: myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[0]),
                                  day: "Today",
                                  temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))"
-//                                 max: "\(myWeather.getTempMaxByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))",
-//                                 min: "\(myWeather.getTempMinByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))"
                         )
                         Divider()
 
                         DailyRow(logo: myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[1]),
                                  day: myWeather.dailyDates[1].formatAsString1(),
                                  temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[1])°\(String(store.selectedUnit.displayText.prefix(1)))"
-//                                 max: "\(myWeather.getTempMaxByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))",
-//                                 min: "\(myWeather.getTempMinByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))"
                         )
                         Divider()
 
                         DailyRow(logo: myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[2]),
                                  day: myWeather.dailyDates[2].formatAsString1(),
                                  temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[2])°\(String(store.selectedUnit.displayText.prefix(1)))"
-//                                 max: "\(myWeather.getTempMaxByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))",
-//                                 min: "\(myWeather.getTempMinByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))"
                         )
 
                         Divider()
@@ -112,8 +105,6 @@ struct ForecastListView: View {
                         DailyRow(logo: myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[3]),
                                  day: myWeather.dailyDates[3].formatAsString1(),
                                  temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[3])°\(String(store.selectedUnit.displayText.prefix(1)))"
-//                                 max: "\(myWeather.getTempMaxByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))",
-//                                 min: "\(myWeather.getTempMinByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))"
                         )
 
                         Divider()
@@ -121,8 +112,6 @@ struct ForecastListView: View {
                         DailyRow(logo: myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[4]),
                                  day: myWeather.dailyDates[4].formatAsString1(),
                                  temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[4])°\(String(store.selectedUnit.displayText.prefix(1)))"
-//                                 max: "\(myWeather.getTempMaxByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))",
-//                                 min: "\(myWeather.getTempMinByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))"
                         )
                     }//vstack
                 }
@@ -130,9 +119,9 @@ struct ForecastListView: View {
         }//VStack
     }
 }
-//
-//struct ForecastListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ForecastListView()
-//    }
-//}
+
+struct ForecastListView_Previews: PreviewProvider {
+    static var previews: some View {
+        ListScreen()
+    }
+}

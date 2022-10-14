@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CoreLocationUI
 
 enum Sheets: Identifiable {
     
@@ -20,23 +19,24 @@ enum Sheets: Identifiable {
 
 struct ListScreen: View {
     
+    @Environment(\.managedObjectContext) var managedObjContext
+    
     @EnvironmentObject var store: Store
     @State var isEditing = false
-    @State var showAdd = false
-    @State private var searchText = ""
     @State private var showCancelButton: Bool = false
     @StateObject private var addCityVM = AddCityViewModel()
     @StateObject var locationManager = LocationManager()
-    var webService = WebService()
     @State var myWeather: ForecastViewModel!
     @AppStorage("unit") private var selectedUnit: TemperatureUnit = .celsius
+    @AppStorage("isDarkMode") private var isDark = false
+    
+    var webService = WebService()
     
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
                     // MARK: - Search Bar
-
                     HStack {
                         Image(systemName: "magnifyingglass")
                         
@@ -48,9 +48,9 @@ struct ListScreen: View {
                         .foregroundColor(.accentColor)
                         
                         Button(action: {
-                            self.searchText = ""
+                            self.addCityVM.city = ""
                         }) {
-                            Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
+                            Image(systemName: "xmark.circle.fill").opacity(addCityVM.city == "" ? 0 : 1)
                         }
                     }
                     .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
@@ -61,7 +61,7 @@ struct ListScreen: View {
                     if showCancelButton  {
                         Button("Cancel") {
                             UIApplication.shared.endEditing(true) // this must be placed before the other commands here
-                            self.searchText = ""
+                            self.addCityVM.city = ""
                             self.showCancelButton = false
                         }
                         .foregroundColor(Color(.systemBlue))
@@ -72,10 +72,9 @@ struct ListScreen: View {
                 
                 List {
                     // MARK: - Current Location
-
                     if let location = locationManager.location {
                         if let myWeather = myWeather {
-                            NavigationLink(destination: DetailScreen(city: myWeather.city)) {
+                            NavigationLink(destination: DetailScreen(city: myWeather.cityName)) {
                                 CurrentWeatherCell(myWeather: myWeather)
                             }
                         } else {
@@ -93,9 +92,9 @@ struct ListScreen: View {
                             .onAppear(perform: locationManager.requestLocation)
                     }
                     // MARK: - Added Cities
-
-                    ForEach(store.weatherList, id: \.city) { myWeather in
-                        NavigationLink(destination: DetailScreen(city: myWeather.city )) {
+                    
+                    ForEach(store.weatherList, id: \.cityName) { myWeather in
+                        NavigationLink(destination: DetailScreen(city: myWeather.cityName )) {
                             WeatherCell(myWeather: myWeather)
                         }
                     }
@@ -105,7 +104,7 @@ struct ListScreen: View {
                 .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
             }//Vstack
             
-// MARK: - NavigationBar
+            // MARK: - NavigationBar
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
@@ -113,9 +112,19 @@ struct ListScreen: View {
                             self.isEditing.toggle()
                         } label: {
                             Label {
-                                Text(isEditing ? "Done" : "Edit List")
+                                Text(isEditing ? "Done" : "Edit")
                             } icon: {
                                 Image(systemName: "pencil")
+                            }
+                        }
+                        //Theme: Dark or LightMode
+                        Button {
+                            isDark.toggle()
+                        } label: {
+                            Label {
+                                Text("Theme: ")
+                            } icon: {
+                                Image(systemName: isDark ? "moon" : "sun.max")
                             }
                         }
                         
@@ -151,13 +160,15 @@ struct ListScreen: View {
             .navigationBarTitle("myWeather")
             .foregroundColor(Color.accentColor)
         }//NvigationView
-    }
+        .preferredColorScheme(isDark ? .dark : .light)
+    } 
 }
 
 struct FavoriteListScreen_Previews: PreviewProvider {
     static var previews: some View {
         ListScreen()
             .environmentObject(Store())
+
     }
 }
 

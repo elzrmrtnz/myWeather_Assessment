@@ -15,7 +15,6 @@ extension UserDefaults {
         }
         return TemperatureUnit(rawValue: value) ?? .celsius
     }
-
 }
 
 enum TemperatureUnit: String, CaseIterable, Identifiable {
@@ -38,5 +37,4 @@ extension TemperatureUnit {
                 return "Fahrenheit"
         }
     }
-
 }

@@ -9,18 +9,12 @@ import SwiftUI
 
 struct FooterView: View {
     
-    @State var showList = false
-    @EnvironmentObject var store: Store
-    @State var showSettings = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
     
     var body: some View {
         HStack {
-            Button  {
-                withAnimation(.easeIn) {
-                    print("Info Pressed")
-                }
+            Menu {
+                Text("myWeather Application info")
             } label: {
                 Image(systemName: "info.circle")
                     .font(.title2)
@@ -30,7 +24,9 @@ struct FooterView: View {
             Spacer()
             
             Button {
-                self.presentationMode.wrappedValue.dismiss()
+                withAnimation(.easeIn) {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
             } label: {
                 Image(systemName: "list.bullet")
                     .font(.title2)
