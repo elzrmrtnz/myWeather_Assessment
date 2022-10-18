@@ -122,6 +122,6 @@ struct ForecastListView: View {
 
 struct ForecastListView_Previews: PreviewProvider {
     static var previews: some View {
-        ListScreen()
+        ListScreen(coreDM: CoreDataManager())
     }
 }

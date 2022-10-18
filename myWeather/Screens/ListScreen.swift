@@ -30,7 +30,10 @@ struct ListScreen: View {
     @AppStorage("unit") private var selectedUnit: TemperatureUnit = .celsius
     @AppStorage("isDarkMode") private var isDark = false
     
+    let coreDM: CoreDataManager
+    @State private var weatherCard: [WeatherCard] = [WeatherCard]()
     var webService = WebService()
+    
     
     var body: some View {
         NavigationView {
@@ -166,7 +169,7 @@ struct ListScreen: View {
 
 struct FavoriteListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        ListScreen()
+        ListScreen(coreDM: CoreDataManager())
             .environmentObject(Store())
 
     }
