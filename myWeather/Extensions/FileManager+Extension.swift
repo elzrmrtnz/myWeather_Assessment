@@ -7,7 +7,7 @@
 
 import Foundation
 
-let fileName = "ToDos.json"
+let fileName = "WeatherList.json"
 
 extension FileManager {
     static var docDirURL: URL {

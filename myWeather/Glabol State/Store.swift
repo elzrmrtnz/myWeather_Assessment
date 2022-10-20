@@ -10,7 +10,7 @@ import Foundation
 class Store: ObservableObject {
     
     @Published var selectedUnit: TemperatureUnit = .celsius
-    @Published var weatherList:[ForecastViewModel] = []
+    @Published var weatherList: [ForecastViewModel] = []
     
     init() {
         selectedUnit = UserDefaults.standard.unit
@@ -25,13 +25,13 @@ class Store: ObservableObject {
         saveWeather()
     }
     
-    func updateToDo(_ myWeather: ForecastViewModel) {
+    func updateWeather(_ myWeather: ForecastViewModel) {
         guard let index = weatherList.firstIndex(where: { $0.id == myWeather.id}) else { return }
         weatherList[index] = myWeather
         saveWeather()
     }
     
-    func deleteToDo(at indexSet: IndexSet) {
+    func deleteWeather(at indexSet: IndexSet) {
         weatherList.remove(atOffsets: indexSet)
         saveWeather()
     }
@@ -53,7 +53,7 @@ class Store: ObservableObject {
     }
     
     func saveWeather() {
-        print("Saving toDos to file system")
+        print("Saving weatherList to file system")
         let encoder = JSONEncoder()
         do {
             let data = try encoder.encode(weatherList)

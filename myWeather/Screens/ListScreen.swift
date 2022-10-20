@@ -19,8 +19,6 @@ enum Sheets: Identifiable {
 
 struct ListScreen: View {
     
-//    @Environment(\.managedObjectContext) var managedObjContext
-    
     @EnvironmentObject var store: Store
     @State var isEditing = false
     @State private var showCancelButton: Bool = false
@@ -29,11 +27,6 @@ struct ListScreen: View {
     @State var myWeather: ForecastViewModel!
     @AppStorage("unit") private var selectedUnit: TemperatureUnit = .celsius
     @AppStorage("isDarkMode") private var isDark = false
-    
-//    let coreDM: CoreDataManager
-//    @State private var weatherCard: [WeatherCard] = [WeatherCard]()
-    
-//    @Environment(\.managedObjectContext) var context
     
     var webService = WebService()
     
@@ -88,6 +81,8 @@ struct ListScreen: View {
                                 .task {
                                     do {
                                         myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
+                                        
+                                        store.addWeather(myWeather)
                                     } catch {
                                         print("Error getting weather: \(error)")
                                     }
@@ -104,7 +99,7 @@ struct ListScreen: View {
                             WeatherCell(myWeather: myWeather)
                         }
                     }
-                    .onDelete(perform: store.deleteToDo)
+                    .onDelete(perform: store.deleteWeather)
                 }//ScrollView
                 .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
             }//Vstack
