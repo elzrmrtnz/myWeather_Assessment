@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 class DataController: ObservableObject {
-    @Published var weatherList: [ForecastViewModel] = [ForecastViewModel]()
+    @Published var weatherList: [ForecastViewModel] = []
     let container = NSPersistentContainer(name: "WeatherModel")
     
     init() {
@@ -20,30 +20,62 @@ class DataController: ObservableObject {
         }
     }
     
-    func save(context: NSManagedObjectContext) {
-        do {
-            try context.save()
-            print("Data saved!!")
-        } catch {
-            print("We could not save the data..")
+//    func save(context: NSManagedObjectContext) {
+//        do {
+//            try context.save()
+//            print("Data saved!!")
+//        } catch {
+//            print("We could not save the data..")
+//        }
+//    }
+
+    func saveData(context: NSManagedObjectContext) {
+        
+        weatherList.forEach { (data) in
+            
+            let weatherCard = WeatherCard(context: context)
+            weatherCard.cityName = data.cityName
+            weatherCard.condition = data.description
+            weatherCard.temp = data.temp
+            weatherCard.icon = data.icon
+            weatherCard.date = data.date
         }
-    }
+            do {
+                try context.save()
+                print("Success")
+            } catch {
+        
+                print(error.localizedDescription)
+            }
 
-    func addWeatherCard(cityName: String, context: NSManagedObjectContext) {
-        let weatherCard = WeatherCard(context: context)
-        weatherCard.id = UUID()
-        weatherCard.date = String()
-        weatherCard.icon = String()
-        weatherCard.temp = String()
-        weatherCard.cityName = cityName
-        
-        
-        save(context: context)
-    }
-
-    func addWeather(_ myWeather: ForecastViewModel, context: NSManagedObjectContext) {
-        weatherList.append(myWeather)
-        
-        save(context: context)
+//        save(context: context)
     }
 }
+
+//func addWeather(_ myWeather: ForecastViewModel, context: NSManagedObjectContext) {
+//    weatherList.append(myWeather)
+//
+//    save(context: context)
+//}
+//
+//func saveData(context: NSManagedObjectContext) {
+//
+//    weather.forEach { (data) in
+//
+//        let weatherCard = WeatherCard(context: context)
+//        weatherCard.cityName = data.cityName
+//        weatherCard.condition = data.description
+//        weatherCard.temp = data.temp
+//        weatherCard.icon = data.icon
+//        weatherCard.date = data.date
+//    }
+//
+//    do {
+//        try context.save()
+//        print("Success")
+//    } catch {
+//
+//        print(error.localizedDescription)
+//    }
+//
+//}

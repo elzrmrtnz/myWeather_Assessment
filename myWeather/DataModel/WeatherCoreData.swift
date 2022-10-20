@@ -56,13 +56,14 @@ class CoreDataManager {
         
     }
     
-    func saveWeatherCard(cityName: String, temp: String, date: String, icon: String) {
+    func saveWeatherCard(cityName: String, temp: String, date: Date, icon: String, condition: String) {
         
         let weatherCard = WeatherCard(context: persistentContainer.viewContext)
         weatherCard.cityName = cityName
         weatherCard.temp = temp
         weatherCard.date = date
         weatherCard.icon = icon
+        weatherCard.condition = condition
         
         do {
             try persistentContainer.viewContext.save()
@@ -73,3 +74,25 @@ class CoreDataManager {
     }
     
 }
+
+//func saveData(context: NSManagedObjectContext) {
+//
+//    weather.forEach { (data) in
+//
+//        let weatherCard = WeatherCard(context: context)
+//        weatherCard.cityName = data.cityName
+//        weatherCard.condition = data.description
+//        weatherCard.temp = data.temp
+//        weatherCard.icon = data.icon
+//        weatherCard.date = data.date
+//    }
+//
+//    do {
+//        try context.save()
+//        print("Success")
+//    } catch {
+//
+//        print(error.localizedDescription)
+//    }
+//
+//}

@@ -50,7 +50,7 @@ struct CurrentWeatherCell: View {
 
 struct CurrentWeatherList_Previews: PreviewProvider {
     static var previews: some View {
-        ListScreen(coreDM: CoreDataManager())
+        ListScreen()
     }
 }
 

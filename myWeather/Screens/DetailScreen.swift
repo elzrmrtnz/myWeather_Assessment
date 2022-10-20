@@ -43,7 +43,7 @@ struct DetailScreen: View {
 
 struct DetailScreen_Previews: PreviewProvider {
     static var previews: some View {
-        ListScreen(coreDM: CoreDataManager())
+        ListScreen()
             .environmentObject(Store())
     }
 }

@@ -6,11 +6,37 @@
 //
 
 import Foundation
+import CoreData
 
 
 class AddCityViewModel: ObservableObject {
     
+    @Published var weather : [ForecastViewModel] = []
+//    @EnvironmentObject var store: Store
+    
     var city: String = ""
+    
+//    func saveData(context: NSManagedObjectContext) {
+//
+//        weather.forEach { (data) in
+//
+//            let weatherCard = WeatherCard(context: context)
+//            weatherCard.cityName = data.cityName
+//            weatherCard.condition = data.description
+//            weatherCard.temp = data.temp
+//            weatherCard.icon = data.icon
+//            weatherCard.date = data.date
+//        }
+//
+//        do {
+//            try context.save()
+//            print("Success")
+//        } catch {
+//
+//            print(error.localizedDescription)
+//        }
+//
+//    }
     
     func getCity(completion: @escaping (ForecastViewModel) -> Void) {
         
@@ -28,16 +54,20 @@ class AddCityViewModel: ObservableObject {
     }
 }
 
-struct ForecastViewModel {
+struct ForecastViewModel: Identifiable, Codable {
 
     let myWeather: MyWeather
 
-    let id = UUID()
+    var id = UUID()
 
     var cityName: String {
         return myWeather.city
     }
 
+    var temp: String {
+        return getTempByUnit(unit: .celsius)
+    }
+    
     var icon: String {
         return myWeather.icon0
     }

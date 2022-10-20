@@ -13,10 +13,10 @@ struct myWeatherApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ListScreen(coreDM: CoreDataManager())
+            ListScreen()
                 .environmentObject(Store())
                 .environment(\.managedObjectContext,
-                              dataController.container.viewContext)
+                               dataController.container.viewContext)
         }
     }
 }

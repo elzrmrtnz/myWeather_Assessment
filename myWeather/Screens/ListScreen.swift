@@ -19,7 +19,7 @@ enum Sheets: Identifiable {
 
 struct ListScreen: View {
     
-    @Environment(\.managedObjectContext) var managedObjContext
+//    @Environment(\.managedObjectContext) var managedObjContext
     
     @EnvironmentObject var store: Store
     @State var isEditing = false
@@ -30,8 +30,11 @@ struct ListScreen: View {
     @AppStorage("unit") private var selectedUnit: TemperatureUnit = .celsius
     @AppStorage("isDarkMode") private var isDark = false
     
-    let coreDM: CoreDataManager
-    @State private var weatherCard: [WeatherCard] = [WeatherCard]()
+//    let coreDM: CoreDataManager
+//    @State private var weatherCard: [WeatherCard] = [WeatherCard]()
+    
+//    @Environment(\.managedObjectContext) var context
+    
     var webService = WebService()
     
     
@@ -101,8 +104,7 @@ struct ListScreen: View {
                             WeatherCell(myWeather: myWeather)
                         }
                     }
-                    .onDelete(perform: { indexSet in
-                        store.weatherList.remove(atOffsets: indexSet)})
+                    .onDelete(perform: store.deleteToDo)
                 }//ScrollView
                 .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
             }//Vstack
@@ -169,7 +171,7 @@ struct ListScreen: View {
 
 struct FavoriteListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        ListScreen(coreDM: CoreDataManager())
+        ListScreen()
             .environmentObject(Store())
 
     }
