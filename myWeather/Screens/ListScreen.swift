@@ -82,7 +82,7 @@ struct ListScreen: View {
                                     do {
                                         myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
                                         
-                                        store.addWeather(myWeather)
+//                                        store.addWeather(myWeather)// duplicates Current location
                                     } catch {
                                         print("Error getting weather: \(error)")
                                     }
