@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import CoreData
 
 
 class AddCityViewModel: ObservableObject {
+    
+    @Published var weather : [ForecastViewModel] = []
     
     var city: String = ""
     
@@ -28,16 +31,20 @@ class AddCityViewModel: ObservableObject {
     }
 }
 
-struct ForecastViewModel {
+struct ForecastViewModel: Identifiable, Codable {
 
     let myWeather: MyWeather
 
-    let id = UUID()
+    var id = UUID()
 
     var cityName: String {
         return myWeather.city
     }
 
+    var temp: String {
+        return getTempByUnit(unit: .celsius)
+    }
+    
     var icon: String {
         return myWeather.icon0
     }

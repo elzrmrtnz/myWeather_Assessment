@@ -19,8 +19,6 @@ enum Sheets: Identifiable {
 
 struct ListScreen: View {
     
-    @Environment(\.managedObjectContext) var managedObjContext
-    
     @EnvironmentObject var store: Store
     @State var isEditing = false
     @State private var showCancelButton: Bool = false
@@ -31,6 +29,7 @@ struct ListScreen: View {
     @AppStorage("isDarkMode") private var isDark = false
     
     var webService = WebService()
+    
     
     var body: some View {
         NavigationView {
@@ -82,6 +81,8 @@ struct ListScreen: View {
                                 .task {
                                     do {
                                         myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
+                                        
+//                                        store.addWeather(myWeather)// duplicates Current location
                                     } catch {
                                         print("Error getting weather: \(error)")
                                     }
@@ -98,8 +99,7 @@ struct ListScreen: View {
                             WeatherCell(myWeather: myWeather)
                         }
                     }
-                    .onDelete(perform: { indexSet in
-                        store.weatherList.remove(atOffsets: indexSet)})
+                    .onDelete(perform: store.deleteWeather)
                 }//ScrollView
                 .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
             }//Vstack
