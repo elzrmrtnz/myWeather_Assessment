@@ -20,6 +20,9 @@ enum Sheets: Identifiable {
 struct ListScreen: View {
     
     @EnvironmentObject var store: Store
+//    @EnvironmentObject var data: DataStore
+    @ObservedObject var networkManager = NetworkManager()
+    
     @State var isEditing = false
     @State private var showCancelButton: Bool = false
     @StateObject private var addCityVM = AddCityViewModel()
@@ -71,27 +74,52 @@ struct ListScreen: View {
                 
                 List {
                     // MARK: - Current Location
-                    if let location = locationManager.location {
-                        if let myWeather = myWeather {
-                            NavigationLink(destination: DetailScreen(city: myWeather.cityName)) {
-                                CurrentWeatherCell(myWeather: myWeather)
+                    if networkManager.isConnected {
+                        if let location = locationManager.location {
+                            if let myWeather = myWeather {
+                                NavigationLink(destination: DetailScreen(city: myWeather.cityName)) {
+                                    CurrentWeatherCell(myWeather: myWeather)
+                                }
+//                                .onAppear(perform: store.loadCurrent)
+                            } else {
+                                LoadingView()
+                                    .task {
+                                        do {
+                                            myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
+                                            
+                                        //Save or Update stored data
+                                            if store.currentW.isEmpty {
+                                                store.addCurrent(myWeather)
+                                            } else {
+                                                store.updateCurrent(myWeather)
+                                            }
+                                        } catch {
+                                            print("Error getting weather: \(error)")
+                                        }
+                                    }
                             }
                         } else {
                             LoadingView()
-                                .task {
-                                    do {
-                                        myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
-                                        
-//                                        store.addWeather(myWeather)// duplicates Current location
-                                    } catch {
-                                        print("Error getting weather: \(error)")
-                                    }
-                                }
+                                .onAppear(perform: locationManager.requestLocation)
                         }
                     } else {
-                        LoadingView()
-                            .onAppear(perform: locationManager.requestLocation)
+                        ForEach(store.currentW, id: \.cityName) { myWeather in
+                            NavigationLink(destination: DetailScreen(city: myWeather.cityName )) {
+                                CurrentWeatherCell(myWeather: myWeather)
+                            }
+                        }
                     }
+//                        .onAppear(perform: data.loadCurrent)
+//                        LoadingView()
+//                        .onAppear(perform: data.loadCurrent)
+//                    }
+//
+//                    ForEach(store.currentW, id: \.cityName) { myWeather in
+//                        NavigationLink(destination: DetailScreen(city: myWeather.cityName )) {
+//                            CurrentWeatherCell(myWeather: myWeather)
+//                        }
+//                    }
+                    
                     // MARK: - Added Cities
                     
                     ForEach(store.weatherList, id: \.cityName) { myWeather in
@@ -168,7 +196,7 @@ struct FavoriteListScreen_Previews: PreviewProvider {
     static var previews: some View {
         ListScreen()
             .environmentObject(Store())
-
+//            .environmentObject(DataStore())
     }
 }
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct CurrentWeatherCell: View {
     
     @EnvironmentObject var store: Store
+//    @EnvironmentObject var data: DataStore
     let myWeather: ForecastViewModel
     
     var body: some View {

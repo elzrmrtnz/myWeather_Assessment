@@ -27,7 +27,6 @@ class AddCityViewModel: ObservableObject {
                 print(error)
             }
         }
-        
     }
 }
 
@@ -42,7 +41,7 @@ struct ForecastViewModel: Identifiable, Codable {
     }
 
     var temp: String {
-        return getTempByUnit(unit: .celsius)
+        return getTempByUnit(unit: Store().selectedUnit)
     }
     
     var icon: String {
