@@ -25,6 +25,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     // Requests the one-time delivery of the user’s current location, see https://developer.apple.com/documentation/corelocation/cllocationmanager/1620548-requestlocation
     func requestLocation() {
         isLoading = true
+        manager.requestWhenInUseAuthorization()
         manager.requestLocation()
     }
     

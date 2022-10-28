@@ -13,6 +13,7 @@ struct myWeatherApp: App {
         WindowGroup {
             ListScreen()
                 .environmentObject(Store())
+//                .environmentObject(DataStore())
         }
     }
 }

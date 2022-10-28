@@ -19,18 +19,18 @@ enum Sheets: Identifiable {
 
 struct ListScreen: View {
     
+    @AppStorage("unit") private var selectedUnit: TemperatureUnit = .celsius
+    @AppStorage("isDarkMode") private var isDark = false
     @EnvironmentObject var store: Store
+    @ObservedObject var networkManager = NetworkManager()
+    @State var myWeather: ForecastViewModel!
     @State var isEditing = false
     @State private var showCancelButton: Bool = false
     @StateObject private var addCityVM = AddCityViewModel()
     @StateObject var locationManager = LocationManager()
-    @State var myWeather: ForecastViewModel!
-    @AppStorage("unit") private var selectedUnit: TemperatureUnit = .celsius
-    @AppStorage("isDarkMode") private var isDark = false
-    
+   
     var webService = WebService()
-    
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -71,35 +71,53 @@ struct ListScreen: View {
                 
                 List {
                     // MARK: - Current Location
-                    if let location = locationManager.location {
-                        if let myWeather = myWeather {
-                            NavigationLink(destination: DetailScreen(city: myWeather.cityName)) {
-                                CurrentWeatherCell(myWeather: myWeather)
+                    if networkManager.isConnected {
+                        if let location = locationManager.location {
+                            if let myWeather = myWeather {
+                                NavigationLink(destination: DetailCards(city: myWeather.cityName)) {
+                                    CurrentWeatherCell(myWeather: myWeather)
+                                }
+                            } else {
+                                LoadingView()
+                                    .task {
+                                        do {
+                                            myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
+                                            
+                                        //Save or Update stored data
+                                            if store.currentW.isEmpty {
+                                                store.addCurrent(myWeather)
+                                            } else {
+                                                store.updateCurrent(myWeather)
+                                            }
+                                        } catch {
+                                            print("Error getting weather: \(error)")
+                                        }
+                                    }
                             }
                         } else {
                             LoadingView()
-                                .task {
-                                    do {
-                                        myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
-                                        
-//                                        store.addWeather(myWeather)// duplicates Current location
-                                    } catch {
-                                        print("Error getting weather: \(error)")
-                                    }
-                                }
+                                .onAppear(perform: locationManager.requestLocation)
                         }
                     } else {
-                        LoadingView()
-                            .onAppear(perform: locationManager.requestLocation)
+                        ForEach(store.currentW, id: \.cityName) { myWeather in
+                            NavigationLink(destination: DetailCards(city: myWeather.cityName )) {
+                                CurrentWeatherCell(myWeather: myWeather)
+                            }
+                        }
                     }
-                    // MARK: - Added Cities
                     
-                    ForEach(store.weatherList, id: \.cityName) { myWeather in
-                        NavigationLink(destination: DetailScreen(city: myWeather.cityName )) {
+                    // MARK: - Added Cities
+//                    if networkManager.isConnected {
+//                        //Update Stored WeatherList
+//                          store.updateWeather(myWeather)
+//                    } else {
+                        ForEach(store.weatherList, id: \.cityName) { myWeather in
+                            NavigationLink(destination: DetailCards(city: myWeather.cityName)) {
                             WeatherCell(myWeather: myWeather)
                         }
                     }
                     .onDelete(perform: store.deleteWeather)
+//                    }//end of if else
                 }//ScrollView
                 .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
             }//Vstack
@@ -108,6 +126,7 @@ struct ListScreen: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
+                        //Edit: Delete
                         Button {
                             self.isEditing.toggle()
                         } label: {
@@ -129,16 +148,16 @@ struct ListScreen: View {
                         }
                         
                         Divider()
-                        
+                        //Temperatue Unit
                         Picker(selection: $selectedUnit, label: Text("")) {
                             ForEach(TemperatureUnit.allCases, id: \.self) {
                                 Text("\($0.displayText)" as String)
                             }
                         }
-                        .pickerStyle(.automatic)
+                        .pickerStyle(.automatic)//adapt menu style
                         
                         Divider()
-                        
+                        //Report Issue
                         Button {
                             print("Report an Issue")
                         } label: {
@@ -150,7 +169,7 @@ struct ListScreen: View {
                         }
                     } label: {
                         Image(systemName: "ellipsis.circle")
-                    }
+                    }//End of Menu
                     //Update value when user select a unit
                     .onChange(of: selectedUnit) { newValue in
                         store.selectedUnit = selectedUnit
@@ -168,7 +187,6 @@ struct FavoriteListScreen_Previews: PreviewProvider {
     static var previews: some View {
         ListScreen()
             .environmentObject(Store())
-
     }
 }
 

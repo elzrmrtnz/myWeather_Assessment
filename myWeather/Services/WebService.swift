@@ -26,7 +26,6 @@ class WebService: NSObject {
         guard let url = URL.getForecastByLocation(latitude: latitude, longitude: longitude)
         else { fatalError("Missing URL") }
 
-
         let urlRequest = URLRequest(url: url)
         
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
