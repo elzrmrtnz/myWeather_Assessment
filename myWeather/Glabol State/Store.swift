@@ -24,6 +24,8 @@ class Store: ObservableObject {
         }
     }
     
+    // MARK: - Added Weather
+
     func addWeather(_ myWeather: ForecastViewModel) {
         weatherList.append(myWeather)
         saveWeather()
@@ -72,7 +74,7 @@ class Store: ObservableObject {
         }
     }
     
-    // MARK: - Current
+    // MARK: - Current Weather Location
 
     func addCurrent(_ myWeather: ForecastViewModel) {
         currentW.append(myWeather)
