@@ -11,9 +11,19 @@ import SwiftUI
 struct myWeatherApp: App {
     var body: some Scene {
         WindowGroup {
+            TabView {
+            LocWeatherScreen()
+                    .environmentObject(Store())
+                    .tabItem {
+                        Image(systemName: "location.fill")
+                    }
+                
             ListScreen()
                 .environmentObject(Store())
-//                .environmentObject(DataStore())
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                }
+            }
         }
     }
 }
