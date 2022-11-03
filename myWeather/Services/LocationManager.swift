@@ -31,7 +31,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     // Set the location coordinates to the location variable
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = locations.first?.coordinate
+        location = locations.first!.coordinate
         isLoading = false
     }
     

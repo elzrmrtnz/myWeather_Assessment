@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ForecastListView: View {
 
-    let myWeather: ForecastViewModel
+    let myWeather: DetailViewModel
     @EnvironmentObject var store: Store
 
     var body: some View {
