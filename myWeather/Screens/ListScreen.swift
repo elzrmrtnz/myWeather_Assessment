@@ -74,7 +74,7 @@ struct ListScreen: View {
                     if networkManager.isConnected {
                         if let location = locationManager.location {
                             if let myWeather = myWeather {
-                                NavigationLink(destination: DetailScreen(city: myWeather.cityName)) {
+                                NavigationLink(destination: DetailCards(city: myWeather.cityName)) {
                                     CurrentWeatherCell(myWeather: myWeather)
                                 }
                             } else {
@@ -100,7 +100,7 @@ struct ListScreen: View {
                         }
                     } else {
                         ForEach(store.currentW, id: \.cityName) { myWeather in
-                            NavigationLink(destination: DetailScreen(city: myWeather.cityName )) {
+                            NavigationLink(destination: DetailCards(city: myWeather.cityName )) {
                                 CurrentWeatherCell(myWeather: myWeather)
                             }
                         }
@@ -112,7 +112,7 @@ struct ListScreen: View {
 //                          store.updateWeather(myWeather)
 //                    } else {
                         ForEach(store.weatherList, id: \.cityName) { myWeather in
-                            NavigationLink(destination: DetailScreen(city: myWeather.cityName)) {
+                            NavigationLink(destination: DetailCards(city: myWeather.cityName)) {
                             WeatherCell(myWeather: myWeather)
                         }
                     }
