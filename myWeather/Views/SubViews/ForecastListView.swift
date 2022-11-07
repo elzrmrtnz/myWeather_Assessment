@@ -12,7 +12,7 @@ struct ForecastListView: View {
 //    let myWeather: DetailViewModel
     let myWeather: ForecastViewModel
     @EnvironmentObject var store: Store
-
+    
     var body: some View {
         VStack {
             ScrollView(showsIndicators: false) {

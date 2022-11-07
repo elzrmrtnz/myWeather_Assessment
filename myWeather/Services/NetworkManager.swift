@@ -31,7 +31,6 @@ class NetworkManager: ObservableObject {
                 self.isConnected = path.status == .satisfied
             }
         }
-        
         monitor.start(queue: queue)
     }
 }

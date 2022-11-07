@@ -1,85 +1,53 @@
 //
-//  ForecastListViewModel.swift
+//  ForecastViewModel.swift
 //  myWeather
 //
-//  Created by eleazar.martinez on 8/10/22.
+//  Created by eleazar.martinez on 11/7/22.
 //
 
-import CoreLocation
 import Foundation
-import SwiftUI
 
-enum LoadingState {
-    case loading, success, failed, none
-}
+struct ForecastViewModel: Identifiable, Codable {
 
-class DetailViewModel: ObservableObject {
-    
-    @Published var myWeather: MyWeather?
-    @Published var loadingState: LoadingState = .none
-    
-    let webService = WebService()
-    var city: String = ""
-    
-    init(myWeather: MyWeather? = nil) {
-        self.myWeather = myWeather
-    }
-    
-    let id = UUID()
-    
-    func getForecastByCity(city: String) {
-        
-        webService.getForecastBy(city: city.trimmedAndEscaped()) { result in
-            switch result {
-            case .success(let myWeather):
-                if let myWeather = myWeather {
-                    DispatchQueue.main.async {
-                        self.myWeather = myWeather
-                        self.loadingState = .success
-                    }
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.loadingState = .failed
-            }
-        }
-    }
+    let myWeather: MyWeather
+
+    var id = UUID()
     
     var cityName: String {
-        return myWeather!.city
+        return myWeather.city
     }
     
     var description: String {
-        return myWeather!.description0
+        return myWeather.description0
     }
     
     // MARK: - Details
 
     var sunrise: Date {
-        return myWeather!.sunrise
+        return myWeather.sunrise
     }
     
     var sunset: Date {
-        return myWeather!.sunset
+        return myWeather.sunset
     }
     
     var currentHumidity: String {
-        return roundedOf(myWeather!.hum)
+        return roundedOf(myWeather.hum)
     }
     
     var currentWind: String {
-        return roundedOf(myWeather!.speed)
+        return roundedOf(myWeather.speed)
     }
 
     //MARK: - 5-Day Forecast
     //MARK: - DATE
     
     var dailyDates: [Date] {
-        return [ myWeather!.date0,
-                 myWeather!.date1,
-                 myWeather!.date2,
-                 myWeather!.date3,
-                 myWeather!.date4
+        return [ myWeather.date0,
+                 myWeather.date1,
+                 myWeather.date2,
+                 myWeather.date3,
+                 myWeather.date4
         ]
     }
     
@@ -88,18 +56,18 @@ class DetailViewModel: ObservableObject {
     func getTempByUnit(unit: TemperatureUnit) -> [String] {
         switch unit {
         case .celsius:
-            return [ roundedOf(myWeather!.temperature0),
-                     roundedOf(myWeather!.temperature1),
-                     roundedOf(myWeather!.temperature2),
-                     roundedOf(myWeather!.temperature3),
-                     roundedOf(myWeather!.temperature4)
+            return [ roundedOf(myWeather.temperature0),
+                     roundedOf(myWeather.temperature1),
+                     roundedOf(myWeather.temperature2),
+                     roundedOf(myWeather.temperature3),
+                     roundedOf(myWeather.temperature4)
             ]
         case .fahrenheit:
-            return [ roundedOf(1.8 * (myWeather!.temperature0) + 32),
-                     roundedOf(1.8 * (myWeather!.temperature1) + 32),
-                     roundedOf(1.8 * (myWeather!.temperature2) + 32),
-                     roundedOf(1.8 * (myWeather!.temperature3) + 32),
-                     roundedOf(1.8 * (myWeather!.temperature4) + 32)
+            return [ roundedOf(1.8 * (myWeather.temperature0) + 32),
+                     roundedOf(1.8 * (myWeather.temperature1) + 32),
+                     roundedOf(1.8 * (myWeather.temperature2) + 32),
+                     roundedOf(1.8 * (myWeather.temperature3) + 32),
+                     roundedOf(1.8 * (myWeather.temperature4) + 32)
             ]
         }
     }
@@ -111,11 +79,11 @@ class DetailViewModel: ObservableObject {
     //MARK: - Weather Icon
     
     var dailyWeatherIcons: [String] {
-        return [ myWeather!.icon0,
-                 myWeather!.icon1,
-                 myWeather!.icon2,
-                 myWeather!.icon3,
-                 myWeather!.icon4
+        return [ myWeather.icon0,
+                 myWeather.icon1,
+                 myWeather.icon2,
+                 myWeather.icon3,
+                 myWeather.icon4
         ]
     }
 
