@@ -23,13 +23,12 @@ struct DetailCards: View {
                 ScrollView {
                     HStack {
                         TabView {
-                            
-                            //Current Location Weather
-                            ForEach(store.currentW) { myWeather in
+                            //Current Location Forecast
+                            ForEach(store.currentW, id: \.cityName) { myWeather in
                             ForecastListView(myWeather: myWeather)
                             }
                             
-                            //Added Cities Weather
+                            //Added Cities Forecast
                             ForEach(store.weatherList, id: \.cityName) { myWeather in
                             ForecastListView(myWeather: myWeather)
                           }

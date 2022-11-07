@@ -13,7 +13,19 @@ struct myWeatherApp: App {
         WindowGroup {
             ListScreen()
                 .environmentObject(Store())
-//                .environmentObject(DataStore())
+//            TabView {
+//            LocWeatherScreen()
+//                    .environmentObject(Store())
+//                    .tabItem {
+//                        Image(systemName: "location.fill")
+//                    }
+//
+//            ListScreen()
+//                .environmentObject(Store())
+//                .tabItem {
+//                    Image(systemName: "list.bullet")
+//                }
+//            }
         }
     }
 }
