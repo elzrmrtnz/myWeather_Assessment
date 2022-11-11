@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G217" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ForecastEntity" representedClassName="ForecastEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="condition" optional="YES" attributeType="String"/>
+        <attribute name="date0" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="date1" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="date2" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="date3" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="date4" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="humidity" optional="YES" attributeType="String"/>
+        <attribute name="icon0" optional="YES" attributeType="String"/>
+        <attribute name="icon1" optional="YES" attributeType="String"/>
+        <attribute name="icon2" optional="YES" attributeType="String"/>
+        <attribute name="icon3" optional="YES" attributeType="String"/>
+        <attribute name="icon4" optional="YES" attributeType="String"/>
+        <attribute name="sunrise" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="sunset" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="temp0" optional="YES" attributeType="String"/>
+        <attribute name="temp1" optional="YES" attributeType="String"/>
+        <attribute name="temp2" optional="YES" attributeType="String"/>
+        <attribute name="temp3" optional="YES" attributeType="String"/>
+        <attribute name="temp4" optional="YES" attributeType="String"/>
+        <attribute name="wind" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="ForecastEntity" positionX="-63" positionY="-18" width="128" height="344"/>
+    </elements>
+</model>

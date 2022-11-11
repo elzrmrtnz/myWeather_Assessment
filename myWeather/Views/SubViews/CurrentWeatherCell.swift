@@ -12,6 +12,7 @@ struct CurrentWeatherCell: View {
     @EnvironmentObject var store: Store
     let myWeather: ForecastViewModel
     
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -57,13 +58,14 @@ struct CurrentWeatherList_Previews: PreviewProvider {
 struct WeatherCell: View {
 
     @EnvironmentObject var store: Store
-    let myWeather: ForecastViewModel
+//    let myWeather: ForecastViewModel
+    let forecast: ForecastEntity
 
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 0) {
-                    Text(myWeather.cityName)
+                    Text(forecast.city!)
                         .font(.title3)
                         .fontWeight(.bold)
 
@@ -71,22 +73,22 @@ struct WeatherCell: View {
                         .font(.system(size: 13))
                 }
                 Spacer()
-                Text("\(myWeather.dailyDates[0].formatAsString2())")
+                Text("\(forecast.date0!.formatAsString2())")
                     .font(.system(size: 15))
             }//Vstack
             Spacer()
             VStack {
                 HStack {
-                    Image(myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[0]))
+                    Image(forecast.icon0!)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 30, height: 30)
 
-                    Text("\(myWeather.getTempByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))")
+                    Text("\(forecast.temp0!)°\(String(store.selectedUnit.displayText.prefix(1)))")
                         .font(.title3)
                 }
                 Spacer()
-                Text(myWeather.description.capitalized)
+                Text(forecast.condition!.capitalized)
                     .font(.system(size: 15))
             }
         }//Hstack

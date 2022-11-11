@@ -1,9 +1,8 @@
+
+//  CustomCorner.swift
+//  myWeather
 //
-//  LoadingView.swift
-//  MoviesApp
-//
-//  Created by Mohammad Azam on 7/25/20.
-//  Copyright © 2020 Mohammad Azam. All rights reserved.
+//  Created by eleazar.martinez on 9/29/22.
 //
 
 import SwiftUI

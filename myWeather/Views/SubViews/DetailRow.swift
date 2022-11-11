@@ -1,8 +1,8 @@
 //
-//  WeatherRow.swift
-//  WeatherApp
+//  DetailRow.swift
+//  myWeather
 //
-//  Created by Stephanie Diep on 2021-11-30.
+//  Created by eleazar.martinez on 9/29/22.
 //
 
 import SwiftUI

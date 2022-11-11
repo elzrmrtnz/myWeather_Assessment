@@ -11,8 +11,9 @@ import SwiftUI
 struct myWeatherApp: App {
     var body: some Scene {
         WindowGroup {
-            ListScreen()
+            LaunchScreen()
                 .environmentObject(Store())
+                .environmentObject(ForecastData())
 //            TabView {
 //            LocWeatherScreen()
 //                    .environmentObject(Store())
