@@ -13,6 +13,7 @@ struct myWeatherApp: App {
         WindowGroup {
             LaunchScreen()
                 .environmentObject(Store())
+                .environmentObject(ForecastData())
 //            TabView {
 //            LocWeatherScreen()
 //                    .environmentObject(Store())

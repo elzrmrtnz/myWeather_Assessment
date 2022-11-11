@@ -14,6 +14,8 @@ struct SearchBarView: View {
     @State var myWeather: ForecastViewModel!
     @State var isEditing = false
     @StateObject private var addCityVM = AddCityViewModel()
+    @EnvironmentObject var cd: ForecastData
+    @State var forecast: ForecastEntity!
     
     var body: some View {
         
@@ -24,7 +26,7 @@ struct SearchBarView: View {
                 TextField("Search for a city",
                           text: $addCityVM.city,
                           onEditingChanged: { isEditing in self.showCancelButton = true },
-                          onCommit: {addCityVM.getCity { myWeather in store.addWeather(myWeather)}
+                          onCommit: {addCityVM.getCity { forecast in cd.addForecast(forecast)}
                 })
                 .foregroundColor(.accentColor)
                 

@@ -14,6 +14,8 @@ struct ListScreen: View {
     @ObservedObject var networkManager = NetworkManager()
     @State var myWeather: ForecastViewModel!
     @StateObject var locationManager = LocationManager()
+    @EnvironmentObject var cd: ForecastData
+    @State var forecast: ForecastEntity!
     
     var webService = WebService()
     
@@ -64,14 +66,16 @@ struct ListScreen: View {
                     //                        //Update Stored WeatherList
                     //                          store.updateWeather(myWeather)
                     //                    } else {
-                    ForEach(store.weatherList, id: \.cityName) { myWeather in
+                    ForEach(cd.savedEntites) { forecast in
                         NavigationLink(destination: DetailScreen(myWeather: myWeather)) {
-                            WeatherCell(myWeather: myWeather)
+                            WeatherCell(forecast: forecast)
                         }
                     }
-                    .onDelete(perform: store.deleteWeather)
+                    .onDelete(perform: cd.deleteForecast)
+  
                     //                    }//end of if else
                 }//ScrollView
+                .listStyle(PlainListStyle())
             }//Vstack
             
             // MARK: - NavigationBar
@@ -91,6 +95,7 @@ struct FavoriteListScreen_Previews: PreviewProvider {
     static var previews: some View {
         ListScreen()
             .environmentObject(Store())
+            .environmentObject(ForecastData())
     }
 }
 
