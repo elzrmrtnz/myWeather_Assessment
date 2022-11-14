@@ -21,7 +21,7 @@ class WebService: NSObject {
 
 // MARK: - Get Forecast By Location
 
-    func getCurrentWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async throws -> ForecastViewModel {
+    func getCurrentWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async throws -> [ForecastViewModel] {
         
         guard let url = URL.getForecastByLocation(latitude: latitude, longitude: longitude)
         else { fatalError("Missing URL") }
@@ -34,7 +34,7 @@ class WebService: NSObject {
         
         let forecast = try JSONDecoder().decode(Forecast.self, from: data)
         
-        return ForecastViewModel(myWeather: MyWeather(forecast: forecast))
+        return [ForecastViewModel(myWeather: MyWeather(forecast: forecast))]
     }
     
 // MARK: - Get Forecst by City Name
@@ -62,6 +62,8 @@ class WebService: NSObject {
         }.resume()
     }
     
+    // MARK: - Test Current Location
+
     
     func getCurrentW(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (Result<MyWeather?, NetworkError>) -> Void) {
         

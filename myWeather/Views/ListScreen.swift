@@ -13,6 +13,7 @@ struct ListScreen: View {
     @EnvironmentObject var store: Store
     @ObservedObject var networkManager = NetworkManager()
     @State var myWeather: ForecastViewModel!
+    @State var weather: [ForecastViewModel]!
     @StateObject var locationManager = LocationManager()
     @EnvironmentObject var cd: ForecastData
     @State var forecast: ForecastEntity!
@@ -28,7 +29,7 @@ struct ListScreen: View {
                     // MARK: - Current Location
                     if networkManager.isConnected {
                         if let location = locationManager.location {
-                            if let myWeather = myWeather {
+                            if let weather = weather {
                                 NavigationLink(destination: DetailScreen(myWeather: myWeather)) {
                                     CurrentWeatherCell(myWeather: myWeather)
                                 }
@@ -36,10 +37,10 @@ struct ListScreen: View {
                                 LoadingView()
                                     .task {
                                         do {
-                                            myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
+                                           weather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
                                             
                                             //Save or Update stored data
-                                            if store.currentW.isEmpty {
+                                            if cd.savedEntites.isEmpty {
                                                 store.addCurrent(myWeather)
                                             } else {
                                                 store.updateCurrent(myWeather)

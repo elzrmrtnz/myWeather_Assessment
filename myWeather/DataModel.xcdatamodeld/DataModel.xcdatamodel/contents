@@ -21,9 +21,10 @@
         <attribute name="temp2" optional="YES" attributeType="String"/>
         <attribute name="temp3" optional="YES" attributeType="String"/>
         <attribute name="temp4" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="String"/>
         <attribute name="wind" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="ForecastEntity" positionX="-63" positionY="-18" width="128" height="344"/>
+        <element name="ForecastEntity" positionX="-63" positionY="-18" width="128" height="359"/>
     </elements>
 </model>

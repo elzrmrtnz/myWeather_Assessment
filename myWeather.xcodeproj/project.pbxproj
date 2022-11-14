@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA003003292237E800E57552 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA003002292237E800E57552 /* DataController.swift */; };
 		CA06EF2A28D86B1800F58406 /* CurrentWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA06EF2928D86B1800F58406 /* CurrentWeatherCell.swift */; };
 		CA06EF4B28D9C70500F58406 /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA06EF4A28D9C70500F58406 /* CustomStackView.swift */; };
 		CA30590828A3D5DF003946DD /* myWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA30590728A3D5DF003946DD /* myWeatherApp.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CA003002292237E800E57552 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		CA06EF2928D86B1800F58406 /* CurrentWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherCell.swift; sourceTree = "<group>"; };
 		CA06EF4A28D9C70500F58406 /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
 		CA30590428A3D5DF003946DD /* myWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,6 +213,7 @@
 			children = (
 				CABE077128AB223400C82596 /* Store.swift */,
 				CAD997B3291CD1EA00052777 /* ForecastData.swift */,
+				CA003002292237E800E57552 /* DataController.swift */,
 			);
 			path = "Global State";
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				CABE077828AD26E800C82596 /* AddCityViewModel.swift in Sources */,
 				CA30590828A3D5DF003946DD /* myWeatherApp.swift in Sources */,
 				CAFD674829191F4D00F5D388 /* ForecastViewModel.swift in Sources */,
+				CA003003292237E800E57552 /* DataController.swift in Sources */,
 				CA30592928A3DC5D003946DD /* WebService.swift in Sources */,
 				CA30593328A3FA9B003946DD /* DetailScreen.swift in Sources */,
 				CA96CBA028CB322700AFC513 /* LocationManager.swift in Sources */,
