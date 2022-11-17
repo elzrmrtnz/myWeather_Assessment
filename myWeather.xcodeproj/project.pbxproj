@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CA003003292237E800E57552 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA003002292237E800E57552 /* DataController.swift */; };
+		CA00309D2925D41D00E57552 /* CurrentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA00309C2925D41D00E57552 /* CurrentDetail.swift */; };
 		CA06EF2A28D86B1800F58406 /* CurrentWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA06EF2928D86B1800F58406 /* CurrentWeatherCell.swift */; };
 		CA06EF4B28D9C70500F58406 /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA06EF4A28D9C70500F58406 /* CustomStackView.swift */; };
 		CA30590828A3D5DF003946DD /* myWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA30590728A3D5DF003946DD /* myWeatherApp.swift */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		CA003002292237E800E57552 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		CA00309C2925D41D00E57552 /* CurrentDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDetail.swift; sourceTree = "<group>"; };
 		CA06EF2928D86B1800F58406 /* CurrentWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherCell.swift; sourceTree = "<group>"; };
 		CA06EF4A28D9C70500F58406 /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
 		CA30590428A3D5DF003946DD /* myWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +164,7 @@
 			children = (
 				CA06EF2928D86B1800F58406 /* CurrentWeatherCell.swift */,
 				CA30593A28A4D5AF003946DD /* ForecastListView.swift */,
+				CA00309C2925D41D00E57552 /* CurrentDetail.swift */,
 				CAFD67452918C4CF00F5D388 /* MenuView.swift */,
 				CAFD6749291A45C000F5D388 /* SearchBarView.swift */,
 				CAC1C01628D2E05E00F5D859 /* DetailRow.swift */,
@@ -295,6 +298,7 @@
 				CA06EF4B28D9C70500F58406 /* CustomStackView.swift in Sources */,
 				CAD997B4291CD1EA00052777 /* ForecastData.swift in Sources */,
 				CABE076E28AB217F00C82596 /* UserDefaults+Extensions.swift in Sources */,
+				CA00309D2925D41D00E57552 /* CurrentDetail.swift in Sources */,
 				CAC06F6C28E5A34000FCDFB5 /* DailyRow.swift in Sources */,
 				CAD997B6291E22AC00052777 /* CurrentViewModel.swift in Sources */,
 				CA96CB9828CB2A6600AFC513 /* ModelData.swift in Sources */,

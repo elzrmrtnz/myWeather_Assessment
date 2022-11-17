@@ -10,6 +10,7 @@ import SwiftUI
 struct DetailScreen: View {
     
     @State var myWeather: ForecastViewModel!
+//    @State var forecast: ForecastEntity!
     
     var body: some View {
         ZStack {
@@ -38,3 +39,56 @@ struct DetailScreen_Previews: PreviewProvider {
             .environmentObject(Store())
     }
 }
+
+struct DetailCurrent: View {
+    
+//    @State var myWeather: ForecastViewModel!
+    @State var forecast: CurrentEntity!
+    
+    var body: some View {
+        ZStack {
+            Image("background-image")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                CurrentDetail(forecast: forecast)
+                
+                Spacer()
+                
+                FooterView()
+                    .padding(.top)
+                    .padding(.horizontal)
+                    .background(.ultraThinMaterial)
+                    .edgesIgnoringSafeArea(.bottom)
+            }
+        }
+        .navigationBarHidden(true)
+    }
+}
+
+struct DetailForecast: View {
+    
+//    @State var myWeather: ForecastViewModel!
+    @State var forecast: ForecastEntity!
+    
+    var body: some View {
+        ZStack {
+            Image("background-image")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                ForecastDetail(forecast: forecast)
+                
+                Spacer()
+                
+                FooterView()
+                    .padding(.top)
+                    .padding(.horizontal)
+                    .background(.ultraThinMaterial)
+                    .edgesIgnoringSafeArea(.bottom)
+            }
+        }
+        .navigationBarHidden(true)
+    }
+}
+

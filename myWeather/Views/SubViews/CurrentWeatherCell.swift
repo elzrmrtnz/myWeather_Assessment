@@ -96,3 +96,45 @@ struct WeatherCell: View {
         .background(RoundedRectangle(cornerRadius: 15).stroke())
     }
 }
+
+struct WeatherCellTest: View {
+
+    @EnvironmentObject var store: Store
+//    let myWeather: ForecastViewModel
+    let forecast: CurrentEntity
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("My Location")
+                        .font(.title3)
+                        .fontWeight(.bold)
+
+                    Text(forecast.city!)
+                        .font(.system(size: 13))
+                }
+                Spacer()
+                Text("\(forecast.date0!.formatAsString2())")
+                    .font(.system(size: 15))
+            }//Vstack
+            Spacer()
+            VStack {
+                HStack {
+                    Image(forecast.icon0!)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+
+                    Text("\(forecast.temp0!)°\(String(store.selectedUnit.displayText.prefix(1)))")
+                        .font(.title3)
+                }
+                Spacer()
+                Text(forecast.condition!.capitalized)
+                    .font(.system(size: 15))
+            }
+        }//Hstack
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 15).stroke())
+    }
+}
