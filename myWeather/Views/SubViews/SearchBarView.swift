@@ -43,7 +43,7 @@ struct SearchBarView: View {
             
             if showCancelButton  {
                 Button("Cancel") {
-                    UIApplication.shared.endEditing(true) // this must be placed before the other commands here
+                    UIApplication.shared.endEditing(true)
                     self.addCityVM.city = ""
                     self.showCancelButton = false
                 }
@@ -51,7 +51,7 @@ struct SearchBarView: View {
             }
         }
         .padding(.horizontal)
-        .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
+        .navigationBarHidden(showCancelButton)
     }
 }
 

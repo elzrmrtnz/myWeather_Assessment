@@ -13,10 +13,8 @@ struct ListScreen: View {
     @EnvironmentObject var store: Store
     @ObservedObject var networkManager = NetworkManager()
     @State var myWeather: ForecastViewModel!
-//    @State var weather: [ForecastViewModel]!
     @StateObject var locationManager = LocationManager()
     @EnvironmentObject var cd: ForecastData
-//    @State var forecast: ForecastEntity!
     @State var current: CurrentEntity!
     
     var webService = WebService()
@@ -25,32 +23,26 @@ struct ListScreen: View {
         NavigationView {
             VStack {
                 SearchBarView()
-                
+
                 List {
                     // MARK: - Current Location
                     if networkManager.isConnected {
                         if let location = locationManager.location {
                             if let myWeather = myWeather {
-                                NavigationLink(destination: DetailScreen(myWeather: myWeather)) {
-                                    CurrentWeatherCell(myWeather: myWeather)
-                                }
+                                CurrentWeatherCell(myWeather: myWeather)
+                                    .background(NavigationLink("",destination: DetailScreen(myWeather: myWeather)))
+                                    .listRowSeparator(.hidden)
                             } else {
                                 LoadingView()
                                     .task {
                                         do {
                                             myWeather = try await webService.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
-                                            
-                                            //Save or Update stored data
+            
                                             if cd.current.isEmpty {
                                                 cd.addCurrent(myWeather)
                                             } else {
                                                 cd.updateWeather(myWeather)
                                             }
-//                                            if store.currentW.isEmpty {
-//                                                store.addCurrent(myWeather)
-//                                            } else {
-//                                                store.updateCurrent(myWeather)
-//                                            }
                                         } catch {
                                             print("Error getting weather: \(error)")
                                         }
@@ -62,26 +54,19 @@ struct ListScreen: View {
                         }
                     } else {
                         ForEach(cd.current, id: \.uuid) { forecast in
-                            NavigationLink(destination: DetailCurrent(forecast: forecast)) {
-                                //                                    CurrentWeatherCell(myWeather: myWeather)
-                                WeatherCellTest(forecast: forecast)
-                            }
+                            WeatherCellTest(forecast: forecast)
+                                .background(NavigationLink("", destination: DetailCurrent(forecast: forecast)))
+                                .listRowSeparator(.hidden)
                         }
                     }
                     
                     // MARK: - Added Cities
-                    //                    if networkManager.isConnected {
-                    //                        //Update Stored WeatherList
-                    //                          store.updateWeather(myWeather)
-                    //                    } else {
                     ForEach(cd.forecastList, id: \.uuid) { forecast in
-                        NavigationLink(destination: DetailForecast(forecast: forecast)) {
-                            WeatherCell(forecast: forecast)
-                        }
+                        WeatherCell(forecast: forecast)
+                            .background(NavigationLink("", destination: DetailForecast(forecast: forecast)))
                     }
                     .onDelete(perform: cd.deleteForecast)
-                    
-                    //                    }//end of if else
+                    .listRowSeparator(.hidden)
                 }//ScrollView
                 .listStyle(PlainListStyle())
             }//Vstack
@@ -107,22 +92,3 @@ struct FavoriteListScreen_Previews: PreviewProvider {
     }
 }
 
-
-//    if weather != nil {
-//        CurrentWeatherCell(myWeather: myWeather)
-//    } else {
-//    LoadingView()
-//        .task {
-//            do {
-//                CurrentViewModel().getCurrent { forecast in
-//                    cd.addForecast(weather)}
-//                } catch {
-//                    print("Error getting weather: \(error)")
-//                }
-//            }
-//        }
-//
-//} else {
-//    LoadingView()
-//        .onAppear(perform: locationManager.requestLocation)
-//}

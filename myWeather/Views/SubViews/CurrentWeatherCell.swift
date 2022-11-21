@@ -45,7 +45,8 @@ struct CurrentWeatherCell: View {
             }
         }//Hstack
         .padding()
-        .background(RoundedRectangle(cornerRadius: 15).stroke())
+        .background(RoundedRectangle(cornerRadius: 15).stroke()).background(.ultraThickMaterial)
+        .cornerRadius(15)
     }
 }
 
@@ -58,7 +59,6 @@ struct CurrentWeatherList_Previews: PreviewProvider {
 struct WeatherCell: View {
 
     @EnvironmentObject var store: Store
-//    let myWeather: ForecastViewModel
     let forecast: ForecastEntity
 
     var body: some View {
@@ -93,14 +93,14 @@ struct WeatherCell: View {
             }
         }//Hstack
         .padding()
-        .background(RoundedRectangle(cornerRadius: 15).stroke())
+        .background(RoundedRectangle(cornerRadius: 15).stroke()).background(.ultraThickMaterial)
+        .cornerRadius(15)
     }
 }
 
 struct WeatherCellTest: View {
 
     @EnvironmentObject var store: Store
-//    let myWeather: ForecastViewModel
     let forecast: CurrentEntity
 
     var body: some View {
@@ -135,6 +135,7 @@ struct WeatherCellTest: View {
             }
         }//Hstack
         .padding()
-        .background(RoundedRectangle(cornerRadius: 15).stroke())
+        .background(RoundedRectangle(cornerRadius: 15).stroke()).background(.ultraThickMaterial)
+        .cornerRadius(15)
     }
 }

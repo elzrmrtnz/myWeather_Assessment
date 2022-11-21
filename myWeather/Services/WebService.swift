@@ -61,29 +61,4 @@ class WebService: NSObject {
             
         }.resume()
     }
-    
-    // MARK: - Test Current Location
-
-    
-    func getCurrentW(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (Result<MyWeather?, NetworkError>) -> Void) {
-        
-        guard let url = URL.getForecastByLocation(latitude: latitude, longitude: longitude)
-        else {
-            return completion(.failure(.badURL))
-        }
-        
-        URLSession.shared.dataTask(with: url) {data, response, error in
-            
-            guard let forecast = try? JSONDecoder().decode(Forecast.self, from: data!)
-            else {
-                return completion(.failure(.decodingError))
-            }
-            
-            completion(.success(MyWeather(forecast: forecast)))
-            
-        }.resume()
-    }
-        
-    
-    
   }

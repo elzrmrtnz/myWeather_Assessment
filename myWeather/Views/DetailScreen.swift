@@ -10,7 +10,6 @@ import SwiftUI
 struct DetailScreen: View {
     
     @State var myWeather: ForecastViewModel!
-//    @State var forecast: ForecastEntity!
     
     var body: some View {
         ZStack {
@@ -42,7 +41,6 @@ struct DetailScreen_Previews: PreviewProvider {
 
 struct DetailCurrent: View {
     
-//    @State var myWeather: ForecastViewModel!
     @State var forecast: CurrentEntity!
     
     var body: some View {
@@ -67,8 +65,7 @@ struct DetailCurrent: View {
 }
 
 struct DetailForecast: View {
-    
-//    @State var myWeather: ForecastViewModel!
+
     @State var forecast: ForecastEntity!
     
     var body: some View {
