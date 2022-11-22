@@ -73,6 +73,7 @@
 		CAC06F6928E5989800FCDFB5 /* CustomCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorner.swift; sourceTree = "<group>"; };
 		CAC06F6B28E5A34000FCDFB5 /* DailyRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRow.swift; sourceTree = "<group>"; };
 		CAC1C01628D2E05E00F5D859 /* DetailRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailRow.swift; sourceTree = "<group>"; };
+		CAC4CDDF292C7112002F7670 /* DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		CAC5E4B528AA8A3B00524EA0 /* ListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListScreen.swift; sourceTree = "<group>"; };
 		CAD997AF291CCA5600052777 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		CAD997B3291CD1EA00052777 /* ForecastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastData.swift; sourceTree = "<group>"; };
@@ -526,6 +527,7 @@
 		CAD997AE291CCA5600052777 /* DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				CAC4CDDF292C7112002F7670 /* DataModel 2.xcdatamodel */,
 				CAD997AF291CCA5600052777 /* DataModel.xcdatamodel */,
 			);
 			currentVersion = CAD997AF291CCA5600052777 /* DataModel.xcdatamodel */;

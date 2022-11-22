@@ -20,7 +20,6 @@ struct FooterView: View {
                     .font(.title2)
                     .foregroundColor(Color.accentColor)
             }
-            
             Spacer()
             
             Button {

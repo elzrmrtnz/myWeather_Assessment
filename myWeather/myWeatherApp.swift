@@ -14,19 +14,6 @@ struct myWeatherApp: App {
             LaunchScreen()
                 .environmentObject(Store())
                 .environmentObject(ForecastData())
-//            TabView {
-//            LocWeatherScreen()
-//                    .environmentObject(Store())
-//                    .tabItem {
-//                        Image(systemName: "location.fill")
-//                    }
-//
-//            ListScreen()
-//                .environmentObject(Store())
-//                .tabItem {
-//                    Image(systemName: "list.bullet")
-//                }
-//            }
         }
     }
 }

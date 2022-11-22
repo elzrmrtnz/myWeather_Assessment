@@ -23,7 +23,7 @@ struct DailyRow: View {
             
             Temp(temp: temp)
                 .frame(maxWidth: .infinity, alignment: .trailing)
-        }//hstack
+        }
     }
 }
 
@@ -33,8 +33,6 @@ struct DailyRow_Previews: PreviewProvider {
     }
 }
 
-//Seperate Views for exact separation by equal sizes
-//.frame(maxWidth: .infinity, alignment: .trailing)
 struct Today: View {
     
     var day: String

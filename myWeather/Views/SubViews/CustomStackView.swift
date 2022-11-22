@@ -24,7 +24,6 @@ struct CustomStackView<Title: View, Content: View>: View {
                 .font(.callout)
                 .lineLimit(1)
                 .padding(.leading)
-            //maxHeight..
                 .frame(height: 38)
                 .frame(maxWidth: 350, alignment: .leading)
                 .background(.ultraThinMaterial, in: CustomCorner(corners: [.topLeft,.topRight], radius: 12))

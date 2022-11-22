@@ -15,7 +15,6 @@ struct SearchBarView: View {
     @State var isEditing = false
     @StateObject private var addCityVM = AddCityViewModel()
     @EnvironmentObject var cd: ForecastData
-//    @State var forecast: ForecastEntity!
     
     var body: some View {
         

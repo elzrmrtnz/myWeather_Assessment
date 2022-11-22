@@ -46,27 +46,26 @@ class ForecastData: ObservableObject {
         newForecast.sunset = myWeather.sunset
         newForecast.humidity = myWeather.currentHumidity
         newForecast.wind = myWeather.currentWind
-        newForecast.date0 = myWeather.dailyDates[0]
-        newForecast.date1 = myWeather.dailyDates[1]
-        newForecast.date2 = myWeather.dailyDates[2]
-        newForecast.date3 = myWeather.dailyDates[3]
-        newForecast.date4 = myWeather.dailyDates[4]
-        newForecast.temp0 = myWeather.getTempByUnit(unit: Store().selectedUnit)[0]
-        newForecast.temp1 = myWeather.getTempByUnit(unit: Store().selectedUnit)[1] 
-        newForecast.temp2 = myWeather.getTempByUnit(unit: Store().selectedUnit)[2]
-        newForecast.temp3 = myWeather.getTempByUnit(unit: Store().selectedUnit)[3]
-        newForecast.temp4 = myWeather.getTempByUnit(unit: Store().selectedUnit)[4]
-        newForecast.icon0 = myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[0])
-        newForecast.icon1 = myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[1])
-        newForecast.icon2 = myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[2])
-        newForecast.icon3 = myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[3])
-        newForecast.icon4 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[4])
-        newForecast.iconS0 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[0])
-        newForecast.iconS1 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[1])
-        newForecast.iconS2 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[2])
-        newForecast.iconS3 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[3])
-        newForecast.iconS4 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[4])
-        
+        newForecast.date = [myWeather.dailyDates[0],
+                            myWeather.dailyDates[1],
+                            myWeather.dailyDates[2],
+                            myWeather.dailyDates[3],
+                            myWeather.dailyDates[4]]
+        newForecast.temp = [myWeather.getTempByUnit(unit: Store().selectedUnit)[0],
+                            myWeather.getTempByUnit(unit: Store().selectedUnit)[1],
+                            myWeather.getTempByUnit(unit: Store().selectedUnit)[2],
+                            myWeather.getTempByUnit(unit: Store().selectedUnit)[3],
+                            myWeather.getTempByUnit(unit: Store().selectedUnit)[4]]
+        newForecast.icon = [myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[0]),
+                            myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[1]),
+                            myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[2]),
+                            myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[3]),
+                            myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[4])]
+        newForecast.iconS = [myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[0]),
+                             myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[1]),
+                             myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[2]),
+                             myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[3]),
+                             myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[4])]
         saveForecast()
     }
     
@@ -117,26 +116,26 @@ class ForecastData: ObservableObject {
         newCurrent.sunset = myWeather.sunset
         newCurrent.humidity = myWeather.currentHumidity
         newCurrent.wind = myWeather.currentWind
-        newCurrent.date0 = myWeather.dailyDates[0]
-        newCurrent.date1 = myWeather.dailyDates[1]
-        newCurrent.date2 = myWeather.dailyDates[2]
-        newCurrent.date3 = myWeather.dailyDates[3]
-        newCurrent.date4 = myWeather.dailyDates[4]
-        newCurrent.temp0 = myWeather.getTempByUnit(unit: Store().selectedUnit)[0]
-        newCurrent.temp1 = myWeather.getTempByUnit(unit: Store().selectedUnit)[1]
-        newCurrent.temp2 = myWeather.getTempByUnit(unit: Store().selectedUnit)[2]
-        newCurrent.temp3 = myWeather.getTempByUnit(unit: Store().selectedUnit)[3]
-        newCurrent.temp4 = myWeather.getTempByUnit(unit: Store().selectedUnit)[4]
-        newCurrent.icon0 = myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[0])
-        newCurrent.icon1 = myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[1])
-        newCurrent.icon2 = myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[2])
-        newCurrent.icon3 = myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[3])
-        newCurrent.icon4 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[4])
-        newCurrent.iconS0 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[0])
-        newCurrent.iconS1 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[1])
-        newCurrent.iconS2 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[2])
-        newCurrent.iconS3 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[3])
-        newCurrent.iconS4 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[4])
+        newCurrent.date = [myWeather.dailyDates[0],
+                            myWeather.dailyDates[1],
+                            myWeather.dailyDates[2],
+                            myWeather.dailyDates[3],
+                            myWeather.dailyDates[4]]
+        newCurrent.temp = [myWeather.getTempByUnit(unit: Store().selectedUnit)[0],
+                            myWeather.getTempByUnit(unit: Store().selectedUnit)[1],
+                            myWeather.getTempByUnit(unit: Store().selectedUnit)[2],
+                            myWeather.getTempByUnit(unit: Store().selectedUnit)[3],
+                            myWeather.getTempByUnit(unit: Store().selectedUnit)[4]]
+        newCurrent.icon = [myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[0]),
+                            myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[1]),
+                            myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[2]),
+                            myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[3]),
+                            myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[4])]
+        newCurrent.iconS = [myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[0]),
+                             myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[1]),
+                             myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[2]),
+                             myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[3]),
+                             myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[4])]
         
         saveCurrent()
     }
@@ -152,26 +151,26 @@ class ForecastData: ObservableObject {
         updateCurrent.sunset = myWeather.sunset
         updateCurrent.humidity = myWeather.currentHumidity
         updateCurrent.wind = myWeather.currentWind
-        updateCurrent.date0 = myWeather.dailyDates[0]
-        updateCurrent.date1 = myWeather.dailyDates[1]
-        updateCurrent.date2 = myWeather.dailyDates[2]
-        updateCurrent.date3 = myWeather.dailyDates[3]
-        updateCurrent.date4 = myWeather.dailyDates[4]
-        updateCurrent.temp0 = myWeather.getTempByUnit(unit: Store().selectedUnit)[0]
-        updateCurrent.temp1 = myWeather.getTempByUnit(unit: Store().selectedUnit)[1]
-        updateCurrent.temp2 = myWeather.getTempByUnit(unit: Store().selectedUnit)[2]
-        updateCurrent.temp3 = myWeather.getTempByUnit(unit: Store().selectedUnit)[3]
-        updateCurrent.temp4 = myWeather.getTempByUnit(unit: Store().selectedUnit)[4]
-        updateCurrent.icon0 = myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[0])
-        updateCurrent.icon1 = myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[1])
-        updateCurrent.icon2 = myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[2])
-        updateCurrent.icon3 = myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[3])
-        updateCurrent.icon4 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[4])
-        updateCurrent.iconS0 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[0])
-        updateCurrent.iconS1 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[1])
-        updateCurrent.iconS2 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[2])
-        updateCurrent.iconS3 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[3])
-        updateCurrent.iconS4 = myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[4])
+        updateCurrent.date = [myWeather.dailyDates[0],
+                              myWeather.dailyDates[1],
+                              myWeather.dailyDates[2],
+                              myWeather.dailyDates[3],
+                              myWeather.dailyDates[4]]
+        updateCurrent.temp = [myWeather.getTempByUnit(unit: Store().selectedUnit)[0],
+                              myWeather.getTempByUnit(unit: Store().selectedUnit)[1],
+                              myWeather.getTempByUnit(unit: Store().selectedUnit)[2],
+                              myWeather.getTempByUnit(unit: Store().selectedUnit)[3],
+                              myWeather.getTempByUnit(unit: Store().selectedUnit)[4]]
+        updateCurrent.icon = [myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[0]),
+                               myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[1]),
+                               myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[2]),
+                               myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[3]),
+                               myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[4])]
+        updateCurrent.iconS = [myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[0]),
+                               myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[1]),
+                               myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[2]),
+                               myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[3]),
+                               myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[4])]
         
         guard let index = current.firstIndex(where: { $0.id == updateCurrent.id}) else { return }
         current[index] = updateCurrent

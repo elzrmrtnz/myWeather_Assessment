@@ -56,8 +56,8 @@ struct ListScreen: View {
                         ForEach(cd.current, id: \.uuid) { forecast in
                             WeatherCellTest(forecast: forecast)
                                 .background(NavigationLink("", destination: DetailCurrent(forecast: forecast)))
-                                .listRowSeparator(.hidden)
                         }
+                        .listRowSeparator(.hidden)
                     }
                     
                     // MARK: - Added Cities
@@ -67,9 +67,9 @@ struct ListScreen: View {
                     }
                     .onDelete(perform: cd.deleteForecast)
                     .listRowSeparator(.hidden)
-                }//ScrollView
+                }
                 .listStyle(PlainListStyle())
-            }//Vstack
+            }
             
             // MARK: - NavigationBar
             .toolbar {
@@ -79,7 +79,7 @@ struct ListScreen: View {
             }
             .navigationBarTitle("myWeather")
             .foregroundColor(Color.accentColor)
-        }//NvigationView
+        }
         .preferredColorScheme(isDark ? .dark : .light)
     }
 }

@@ -34,12 +34,12 @@ struct ForecastListView: View {
 
                         Text("\(myWeather.getTempByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))")
                             .font(.system(size: 50))
-                    }//hstack
+                    }
 
                     Text(myWeather.description.capitalized)
                         .font(.title3)
 
-                }//Vstack
+                }
                 .padding()
                 .foregroundColor(.accentColor)
 
@@ -86,38 +86,33 @@ struct ForecastListView: View {
                     VStack(spacing: 10) {
                         DailyRow(logo: myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[0]),
                                  day: "Today",
-                                 temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
+                                 temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))")
                         Divider()
 
                         DailyRow(logo: myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[1]),
                                  day: myWeather.dailyDates[1].formatAsString1(),
-                                 temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[1])°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
+                                 temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[1])°\(String(store.selectedUnit.displayText.prefix(1)))")
                         Divider()
 
                         DailyRow(logo: myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[2]),
                                  day: myWeather.dailyDates[2].formatAsString1(),
-                                 temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[2])°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
+                                 temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[2])°\(String(store.selectedUnit.displayText.prefix(1)))")
 
                         Divider()
 
                         DailyRow(logo: myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[3]),
                                  day: myWeather.dailyDates[3].formatAsString1(),
-                                 temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[3])°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
+                                 temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[3])°\(String(store.selectedUnit.displayText.prefix(1)))")
 
                         Divider()
 
                         DailyRow(logo: myWeather.getSystemIcon(icon: myWeather.dailyWeatherIcons[4]),
                                  day: myWeather.dailyDates[2].formatAsString1(),
-                                 temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[4])°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
-                    }//vstack
+                                 temp: "\(myWeather.getTempByUnit(unit: store.selectedUnit)[4])°\(String(store.selectedUnit.displayText.prefix(1)))")
+                    }
                 }
-            }//ScrollView
-        }//VStack
+            }
+        }
     }
 }
 

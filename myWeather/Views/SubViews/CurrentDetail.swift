@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CurrentDetail: View {
     
-//    let myWeather: ForecastViewModel?
     let forecast: CurrentEntity
     
     @EnvironmentObject var store: Store
@@ -24,23 +23,23 @@ struct CurrentDetail: View {
                         .font(.title)
                         .bold()
                     
-                    Text(forecast.date0!.formatAsString())
+                    Text(forecast.date![0].formatAsString())
                         .font(.title2)
                     
                     HStack(alignment: .center){
-                        Image(forecast.icon0!)
+                        Image(forecast.icon![0])
                             .resizable()
                             .scaledToFit()
                             .frame(width: 50, height: 50)
                         
-                        Text("\(forecast.temp0!)°\(String(store.selectedUnit.displayText.prefix(1)))")
+                        Text("\(forecast.temp![0])°\(String(store.selectedUnit.displayText.prefix(1)))")
                             .font(.system(size: 50))
-                    }//hstack
+                    }
                     
                     Text(forecast.condition!.capitalized)
                         .font(.title3)
                     
-                }//Vstack
+                }
                 .padding()
                 .foregroundColor(.accentColor)
                 
@@ -85,43 +84,37 @@ struct CurrentDetail: View {
                     
                 } contentView: {
                     VStack(spacing: 10) {
-                        DailyRow(logo: forecast.iconS0!,
+                        DailyRow(logo: forecast.iconS![0],
                                  day: "Today",
-                                 temp: "\(forecast.temp0!)°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
+                                 temp: "\(forecast.temp![0])°\(String(store.selectedUnit.displayText.prefix(1)))")
                         Divider()
                         
-                        DailyRow(logo: forecast.iconS1!,
-                                 day: forecast.date1!.formatAsString1(),
-                                 temp: "\(forecast.temp1!)°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
+                        DailyRow(logo: forecast.iconS![1],
+                                 day: forecast.date![1].formatAsString1(),
+                                 temp: "\(forecast.temp![1])°\(String(store.selectedUnit.displayText.prefix(1)))")
                         Divider()
                         
-                        DailyRow(logo: forecast.iconS2!,
-                                 day: forecast.date2!.formatAsString1(),
-                                 temp: "\(forecast.temp2!)°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
+                        DailyRow(logo: forecast.iconS![2],
+                                 day: forecast.date![2].formatAsString1(),
+                                 temp: "\(forecast.temp![2])°\(String(store.selectedUnit.displayText.prefix(1)))")
                         
                         Divider()
                         
-                        DailyRow(logo: forecast.iconS3!,
-                                 day: forecast.date3!.formatAsString1(),
-                                 temp: "\(forecast.temp3!)°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
+                        DailyRow(logo: forecast.iconS![3],
+                                 day: forecast.date![3].formatAsString1(),
+                                 temp: "\(forecast.temp![3])°\(String(store.selectedUnit.displayText.prefix(1)))")
                         
                         Divider()
                         
-                        DailyRow(logo: forecast.iconS4!,
-                                 day: forecast.date4!.formatAsString1(),
-                                 temp: "\(forecast.temp4!)°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
-                    }//vstack
+                        DailyRow(logo: forecast.iconS![4],
+                                 day: forecast.date![4].formatAsString1(),
+                                 temp: "\(forecast.temp![4])°\(String(store.selectedUnit.displayText.prefix(1)))")
+                    }
                 }
-            }//ScrollView
-        }//VStack
+            }
+        }
     }
 }
-
 
 struct CurrentDetail_Previews: PreviewProvider {
     static var previews: some View {
@@ -133,7 +126,6 @@ struct CurrentDetail_Previews: PreviewProvider {
 
 struct ForecastDetail: View {
     
-//    let myWeather: ForecastViewModel?
     let forecast: ForecastEntity
     
     @EnvironmentObject var store: Store
@@ -148,23 +140,23 @@ struct ForecastDetail: View {
                         .font(.title)
                         .bold()
                     
-                    Text(forecast.date0!.formatAsString())
+                    Text(forecast.date![0].formatAsString())
                         .font(.title2)
                     
                     HStack(alignment: .center){
-                        Image(forecast.icon0!)
+                        Image(forecast.icon![0])
                             .resizable()
                             .scaledToFit()
                             .frame(width: 50, height: 50)
                         
-                        Text("\(forecast.temp0!)°\(String(store.selectedUnit.displayText.prefix(1)))")
+                        Text("\(forecast.temp![0])°\(String(store.selectedUnit.displayText.prefix(1)))")
                             .font(.system(size: 50))
-                    }//hstack
+                    }
                     
                     Text(forecast.condition!.capitalized)
                         .font(.title3)
                     
-                }//Vstack
+                }
                 .padding()
                 .foregroundColor(.accentColor)
                 
@@ -209,39 +201,32 @@ struct ForecastDetail: View {
                     
                 } contentView: {
                     VStack(spacing: 10) {
-                        DailyRow(logo: forecast.iconS0!,
+                        DailyRow(logo: forecast.iconS![0],
                                  day: "Today",
-                                 temp: "\(forecast.temp0!)°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
+                                 temp: "\(forecast.temp![0])°\(String(store.selectedUnit.displayText.prefix(1)))")
                         Divider()
                         
-                        DailyRow(logo: forecast.iconS1!,
-                                 day: forecast.date1!.formatAsString1(),
-                                 temp: "\(forecast.temp1!)°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
+                        DailyRow(logo: forecast.iconS![1],
+                                 day: forecast.date![1].formatAsString1(),
+                                 temp: "\(forecast.temp![1])°\(String(store.selectedUnit.displayText.prefix(1)))")
                         Divider()
                         
-                        DailyRow(logo: forecast.iconS2!,
-                                 day: forecast.date2!.formatAsString1(),
-                                 temp: "\(forecast.temp2!)°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
-                        
+                        DailyRow(logo: forecast.iconS![2],
+                                 day: forecast.date![2].formatAsString1(),
+                                 temp: "\(forecast.temp![2])°\(String(store.selectedUnit.displayText.prefix(1)))")
                         Divider()
                         
-                        DailyRow(logo: forecast.iconS3!,
-                                 day: forecast.date3!.formatAsString1(),
-                                 temp: "\(forecast.temp3!)°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
-                        
+                        DailyRow(logo: forecast.iconS![3],
+                                 day: forecast.date![3].formatAsString1(),
+                                 temp: "\(forecast.temp![3])°\(String(store.selectedUnit.displayText.prefix(1)))")
                         Divider()
                         
-                        DailyRow(logo: forecast.iconS4!,
-                                 day: forecast.date4!.formatAsString1(),
-                                 temp: "\(forecast.temp4!)°\(String(store.selectedUnit.displayText.prefix(1)))"
-                        )
-                    }//vstack
+                        DailyRow(logo: forecast.iconS![4],
+                                 day: forecast.date![4].formatAsString1(),
+                                 temp: "\(forecast.temp![4])°\(String(store.selectedUnit.displayText.prefix(1)))")
+                    }
                 }
-            }//ScrollView
-        }//VStack
+            }
+        }
     }
 }

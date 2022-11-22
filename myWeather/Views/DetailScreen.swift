@@ -39,6 +39,8 @@ struct DetailScreen_Previews: PreviewProvider {
     }
 }
 
+// MARK: - CoreData
+
 struct DetailCurrent: View {
     
     @State var forecast: CurrentEntity!

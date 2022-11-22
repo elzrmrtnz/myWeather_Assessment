@@ -27,7 +27,7 @@ struct CurrentWeatherCell: View {
                 Spacer()
                 Text("\(myWeather.dailyDates[0].formatAsString2())")
                     .font(.system(size: 15))
-            }//Vstack
+            }
             Spacer()
             VStack {
                 HStack {
@@ -43,7 +43,7 @@ struct CurrentWeatherCell: View {
                 Text(myWeather.description.capitalized)
                     .font(.system(size: 15))
             }
-        }//Hstack
+        }
         .padding()
         .background(RoundedRectangle(cornerRadius: 15).stroke()).background(.ultraThickMaterial)
         .cornerRadius(15)
@@ -55,6 +55,51 @@ struct CurrentWeatherList_Previews: PreviewProvider {
         ListScreen()
     }
 }
+
+struct WeatherCellList: View {
+    
+    @EnvironmentObject var store: Store
+    let myWeather: ForecastViewModel
+    
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
+                Text(myWeather.cityName)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                
+                Text("")
+                    .font(.system(size: 13))
+                }
+                Spacer()
+                Text("\(myWeather.dailyDates[0].formatAsString2())")
+                    .font(.system(size: 15))
+            }
+            Spacer()
+            VStack {
+                HStack {
+                    Image(myWeather.getIconFor(icon: myWeather.dailyWeatherIcons[0]))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                    
+                    Text("\(myWeather.getTempByUnit(unit: store.selectedUnit)[0])°\(String(store.selectedUnit.displayText.prefix(1)))")
+                        .font(.title3)
+                }
+                Spacer()
+                Text(myWeather.description.capitalized)
+                    .font(.system(size: 15))
+            }
+        }
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 15).stroke()).background(.ultraThickMaterial)
+        .cornerRadius(15)
+    }
+}
+
+// MARK: - CoreData
 
 struct WeatherCell: View {
 
@@ -73,25 +118,25 @@ struct WeatherCell: View {
                         .font(.system(size: 13))
                 }
                 Spacer()
-                Text("\(forecast.date0!.formatAsString2())")
+                Text("\(forecast.date![0].formatAsString2())")
                     .font(.system(size: 15))
-            }//Vstack
+            }
             Spacer()
             VStack {
                 HStack {
-                    Image(forecast.icon0!)
+                    Image(forecast.icon![0])
                         .resizable()
                         .scaledToFit()
                         .frame(width: 30, height: 30)
 
-                    Text("\(forecast.temp0!)°\(String(store.selectedUnit.displayText.prefix(1)))")
+                    Text("\(forecast.temp![0])°\(String(store.selectedUnit.displayText.prefix(1)))")
                         .font(.title3)
                 }
                 Spacer()
                 Text(forecast.condition!.capitalized)
                     .font(.system(size: 15))
             }
-        }//Hstack
+        }
         .padding()
         .background(RoundedRectangle(cornerRadius: 15).stroke()).background(.ultraThickMaterial)
         .cornerRadius(15)
@@ -115,25 +160,25 @@ struct WeatherCellTest: View {
                         .font(.system(size: 13))
                 }
                 Spacer()
-                Text("\(forecast.date0!.formatAsString2())")
+                Text("\(forecast.date![0].formatAsString2())")
                     .font(.system(size: 15))
-            }//Vstack
+            }
             Spacer()
             VStack {
                 HStack {
-                    Image(forecast.icon0!)
+                    Image(forecast.icon![0])
                         .resizable()
                         .scaledToFit()
                         .frame(width: 30, height: 30)
 
-                    Text("\(forecast.temp0!)°\(String(store.selectedUnit.displayText.prefix(1)))")
+                    Text("\(forecast.temp![0])°\(String(store.selectedUnit.displayText.prefix(1)))")
                         .font(.title3)
                 }
                 Spacer()
                 Text(forecast.condition!.capitalized)
                     .font(.system(size: 15))
             }
-        }//Hstack
+        }
         .padding()
         .background(RoundedRectangle(cornerRadius: 15).stroke()).background(.ultraThickMaterial)
         .cornerRadius(15)
